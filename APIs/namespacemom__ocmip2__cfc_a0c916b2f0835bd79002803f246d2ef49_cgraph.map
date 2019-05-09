@@ -1,0 +1,16 @@
+<map id="mom_ocmip2_cfc::initialize_ocmip2_cfc" name="mom_ocmip2_cfc::initialize_ocmip2_cfc">
+<area shape="rect" id="node1" title=" " alt="" coords="5,105,152,146"/>
+<area shape="rect" id="node2" href="$namespacemom__tracer__registry.html#ac008525fee272a225a19998ae437b5bf" title="This subroutine adds diagnostic arrays for a tracer that has previously been registered by a call to ..." alt="" coords="391,170,529,211"/>
+<area shape="rect" id="node5" href="$namespacemom__ocmip2__cfc.html#a403331f12c4b16682f42f284bf57f330" title=" " alt="" coords="209,229,333,270"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="774,195,898,237"/>
+<area shape="rect" id="node11" href="$namespacemom__io.html#a23e82d1d89d9bb1c9bdf802ce80d4508" title="This routine queries vardesc." alt="" coords="203,53,339,80"/>
+<area shape="rect" id="node13" href="$namespacemom__diag__to__z.html#a6946a3316715041c5944df17db1aef74" title=" " alt="" coords="201,105,341,146"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="947,273,1071,314"/>
+<area shape="rect" id="node6" href="$namespacemom__tracer__z__init.html#a153c8859a6918fc350976a4a7c279c79" title=" " alt="" coords="402,345,518,386"/>
+<area shape="rect" id="node7" href="$namespacemom__tracer__z__init.html#a00e2eb419a924624bf8ae6d84e64ef47" title=" " alt="" coords="594,462,710,503"/>
+<area shape="rect" id="node9" href="$namespacemom__diag__to__z.html#a7bb6af99ccb5eb1daf7473663ca19aea" title=" " alt="" coords="591,345,713,386"/>
+<area shape="rect" id="node10" href="$namespacemom__diag__to__z.html#a55f6203cfb483bb62c543f689ab30741" title=" " alt="" coords="591,279,713,321"/>
+<area shape="rect" id="node8" href="$namespacemom__error__handler.html#a1c462df7b61f1296407b4af51dfeceab" title=" " alt="" coords="774,349,898,390"/>
+<area shape="rect" id="node12" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="579,61,725,88"/>
+<area shape="rect" id="node14" href="$namespacemom__diag__to__z.html#adde57f2503f5c182af511fba0f4c83ea" title=" " alt="" coords="390,105,530,146"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="mom_open_boundary::setup_u_point_obc" name="mom_open_boundary::setup_u_point_obc">
+<area shape="rect" id="node1" title="Parse an OBC_SEGMENT_%%% string starting with &quot;I=&quot; and configure placement and type of OBC accordingl..." alt="" coords="187,5,320,46"/>
+<area shape="rect" id="node2" href="$namespacemom__open__boundary.html#a0d3f0ce359b2852f00092f7fef88cd5f" title="Enables OBC module and reads configuration parameters." alt="" coords="5,5,139,46"/>
+</map>

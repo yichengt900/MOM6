@@ -1,0 +1,5 @@
+<map id="mom_tracer_registry::lock_tracer_registry" name="mom_tracer_registry::lock_tracer_registry">
+<area shape="rect" id="node1" title="This subroutine locks the tracer registry to prevent the addition of more tracers...." alt="" coords="6,5,127,46"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="177,5,301,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="350,5,474,46"/>
+</map>

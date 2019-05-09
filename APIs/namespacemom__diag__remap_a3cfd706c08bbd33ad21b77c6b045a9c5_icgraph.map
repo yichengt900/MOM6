@@ -1,0 +1,4 @@
+<map id="mom_diag_remap::diag_remap_end" name="mom_diag_remap::diag_remap_end">
+<area shape="rect" id="node1" title="De&#45;init a diagnostic remapping type. Free allocated memory." alt="" coords="198,13,333,54"/>
+<area shape="rect" id="node2" href="$namespacemom__diag__remap.html#a924b98a931082a788dfdabf86d40f295" title="Inform that all diagnostics have been registered. If _set_active() has not been called on the remappi..." alt="" coords="5,5,149,61"/>
+</map>

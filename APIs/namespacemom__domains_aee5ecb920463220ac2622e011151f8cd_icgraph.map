@@ -1,0 +1,8 @@
+<map id="mom_domains::start_group_pass" name="mom_domains::start_group_pass">
+<area shape="rect" id="node1" title=" " alt="" coords="345,86,463,127"/>
+<area shape="rect" id="node2" href="$namespacemom__barotropic.html#a98cdf3c559146cc9485fcb9daa4cdbca" title=" " alt="" coords="145,5,279,32"/>
+<area shape="rect" id="node3" href="$namespacemom__internal__tides.html#a6cae26da43d0539e8ac959105cf125c2" title=" " alt="" coords="153,57,271,98"/>
+<area shape="rect" id="node4" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="161,123,263,149"/>
+<area shape="rect" id="node6" href="$namespacemom__dynamics__split__rk2.html#a81cce65643a8cf94979d68354a9a1979" title="RK2 splitting for time stepping MOM adiabatic dynamics." alt="" coords="129,174,295,215"/>
+<area shape="rect" id="node5" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,123,80,149"/>
+</map>

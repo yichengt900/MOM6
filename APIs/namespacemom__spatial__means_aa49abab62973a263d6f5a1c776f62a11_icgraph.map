@@ -1,0 +1,9 @@
+<map id="mom_spatial_means::global_area_mean" name="mom_spatial_means::global_area_mean">
+<area shape="rect" id="node1" title=" " alt="" coords="371,99,498,141"/>
+<area shape="rect" id="node2" href="$namespacemom__diagnostics.html#abb6644248c28ab2e952361bfec436063" title=" " alt="" coords="171,5,322,46"/>
+<area shape="rect" id="node3" href="$namespacemom__forcing__type.html#aa685fdcd5863af264335aa60b5b4c210" title="Offer buoyancy forcing fields for diagnostics for those fields registered as part of register_forcing..." alt="" coords="173,70,321,111"/>
+<area shape="rect" id="node5" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="195,136,298,163"/>
+<area shape="rect" id="node6" href="$namespacemom__internal__tides.html#a9e8e7b153aef9049c2217658821e3178" title=" " alt="" coords="189,187,304,229"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="27,107,101,133"/>
+<area shape="rect" id="node7" href="$namespacemom__internal__tides.html#a6cae26da43d0539e8ac959105cf125c2" title=" " alt="" coords="5,187,123,229"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="mom_diag_mediator::diag_mediator_init" name="mom_diag_mediator::diag_mediator_init">
+<area shape="rect" id="node1" title="diag_mediator_init initializes the MOM diag_mediator and opens the available diagnostics file,..." alt="" coords="6,63,133,105"/>
+<area shape="rect" id="node2" href="$namespacemom__diag__mediator.html#a883862f004e30bbc5211f38635511ba0" title="Initializes a diag_type (used after allocating new memory)" alt="" coords="182,5,309,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="358,93,482,134"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="183,122,307,163"/>
+</map>

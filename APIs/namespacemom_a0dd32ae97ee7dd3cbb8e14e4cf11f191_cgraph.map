@@ -1,0 +1,6 @@
+<map id="mom::finish_mom_initialization" name="mom::finish_mom_initialization">
+<area shape="rect" id="node1" title="This subroutine finishes initializing MOM and writes out the initial conditions." alt="" coords="5,45,171,72"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a9cda07a87815f0e5594066162b4345c3" title="Writes a message about entering a subroutine if call tree reporting is active." alt="" coords="219,5,343,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a88ea67781e2ed9b73ab7eac8ea5e8578" title="Writes a message about leaving a subroutine if call tree reporting is active." alt="" coords="219,70,343,111"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="393,38,517,79"/>
+</map>

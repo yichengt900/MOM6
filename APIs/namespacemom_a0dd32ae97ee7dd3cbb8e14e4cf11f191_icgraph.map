@@ -1,0 +1,5 @@
+<map id="mom::finish_mom_initialization" name="mom::finish_mom_initialization">
+<area shape="rect" id="node1" title="This subroutine finishes initializing MOM and writes out the initial conditions." alt="" coords="205,35,371,61"/>
+<area shape="rect" id="node2" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="44,5,119,32"/>
+<area shape="rect" id="node3" href="$namespaceocean__model__mod.html#ac9dc1795fc4799d6682f462857b42d62" title=" " alt="" coords="5,57,157,98"/>
+</map>

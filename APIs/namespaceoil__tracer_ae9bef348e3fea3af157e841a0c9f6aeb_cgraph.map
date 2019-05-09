@@ -1,0 +1,10 @@
+<map id="oil_tracer::register_oil_tracer" name="oil_tracer::register_oil_tracer">
+<area shape="rect" id="node1" title=" " alt="" coords="6,89,114,130"/>
+<area shape="rect" id="node2" href="$namespaceatmos__ocean__fluxes__mod.html#a413981652ffe0bccccdf5ff5c4c1d526" title=" " alt="" coords="163,5,317,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="750,102,874,143"/>
+<area shape="rect" id="node5" href="$namespacemom__io.html#a23e82d1d89d9bb1c9bdf802ce80d4508" title="This routine queries vardesc." alt="" coords="368,121,504,148"/>
+<area shape="rect" id="node7" href="$namespacemom__io.html#a39c3ccc06bb1a6e446af2ee9010eba16" title="Returns a vardesc type whose elements have been filled with the provided fields. The argument name is..." alt="" coords="185,172,295,199"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="923,102,1047,143"/>
+<area shape="rect" id="node6" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="555,147,701,173"/>
+<area shape="rect" id="node8" href="$namespacemom__io.html#af96b29cb8410d557e8e452b81586223b" title="This routine modifies the named elements of a vardesc type. All arguments are optional,..." alt="" coords="366,172,506,199"/>
+</map>

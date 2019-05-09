@@ -1,0 +1,21 @@
+<map id="mom_remapping::average_value_ppoly" name="mom_remapping::average_value_ppoly">
+<area shape="rect" id="node1" title="Returns the average value of a reconstruction within a single source cell, i0, between the non&#45;dimens..." alt="" coords="1286,282,1434,323"/>
+<area shape="rect" id="node2" href="$namespacemom__remapping.html#aac27eb299cd36293b458a51b60ac771f" title="Remaps column of n0 values u0 on grid h0 to grid h1 with n1 cells by calculating the n0+n1+1 sub&#45;inte..." alt="" coords="1097,282,1237,323"/>
+<area shape="rect" id="node3" href="$namespacemom__remapping.html#a6d1533ffa647f3305aba055e2685b095" title="Remaps column of values u0 on grid h0 to grid h1 assuming the top edge is aligned." alt="" coords="888,210,1048,251"/>
+<area shape="rect" id="node17" href="$namespacemom__remapping.html#a8b967872b8db2ac7d538991f7f255e56" title="Remaps column of values u0 on grid h0 to implied grid h1 where the interfaces of h1 differ from those..." alt="" coords="888,282,1048,323"/>
+<area shape="rect" id="node18" href="$namespacemom__remapping.html#a8a79c37c89f8b800f79198aceca5f090" title="Runs unit tests on remapping functions. Should only be called from a single/root thread Returns True ..." alt="" coords="680,341,840,382"/>
+<area shape="rect" id="node4" href="$namespacemom__wave__speed.html#a72302e356c47c5055ba0b1a8714c772a" title="Calculates the wave speed of the first baroclinic mode." alt="" coords="689,78,831,119"/>
+<area shape="rect" id="node9" href="$namespacemom__diag__remap.html#a4b76283906971bcb94e85c0ed25f4e7b" title="Remap diagnostic field to alternative vertical grid." alt="" coords="693,145,827,186"/>
+<area shape="rect" id="node10" href="$namespacemom__state__initialization.html#a71ee3c056ca59c1c3529a4ec22e09fe3" title="Adjust the layer thicknesses by cutting away the top at the depth where the hydrostatic pressure matc..." alt="" coords="693,210,827,251"/>
+<area shape="rect" id="node15" href="$namespacemom__ale__sponge.html#a8f6e6db99f860b048a58e97e58c101a6" title="This subroutine applies damping to the layers thicknesses, temp, salt and a variety of tracers for ev..." alt="" coords="691,275,829,317"/>
+<area shape="rect" id="node5" href="$namespacemom__diagnostics.html#abb6644248c28ab2e952361bfec436063" title=" " alt="" coords="481,5,631,46"/>
+<area shape="rect" id="node6" href="$namespacemom__lateral__mixing__coeffs.html#af206bc656869b4fc27d4d7e8a15d438e" title="Calculates and stores the non&#45;dimensional resolution functions." alt="" coords="497,71,615,127"/>
+<area shape="rect" id="node7" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="137,101,239,128"/>
+<area shape="rect" id="node8" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,131,80,157"/>
+<area shape="rect" id="node11" href="$namespacemom__state__initialization.html#acc1029776c1bdda2862ed0f95c8dc640" title="Adjust the layer thicknesses by cutting away the top of each model column at the depth where the hydr..." alt="" coords="489,151,623,193"/>
+<area shape="rect" id="node14" href="$namespacemom__state__initialization.html#a5c77bf2b0ea9d28e28b661a2a42d3f88" title="Run simple unit tests." alt="" coords="489,217,623,258"/>
+<area shape="rect" id="node12" href="$namespacemom__state__initialization.html#af4e854627c6572332ba3fd895f169321" title=" " alt="" coords="297,151,431,193"/>
+<area shape="rect" id="node13" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,159,247,185"/>
+<area shape="rect" id="node16" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="495,282,617,323"/>
+<area shape="rect" id="node19" href="$namespacemom.html#ae77cfd2e790f1266b31d93c58659d46c" title="Calls unit tests for other modules. These are NOT normally invoked and so we provide the module use s..." alt="" coords="315,283,413,309"/>
+</map>

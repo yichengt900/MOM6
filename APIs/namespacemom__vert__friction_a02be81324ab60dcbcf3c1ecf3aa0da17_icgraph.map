@@ -1,0 +1,6 @@
+<map id="mom_vert_friction::vertvisc_init" name="mom_vert_friction::vertvisc_init">
+<area shape="rect" id="node1" title="Initialise the vertical friction module." alt="" coords="187,86,301,127"/>
+<area shape="rect" id="node2" href="$namespacemom__dynamics__legacy__split.html#aef55fe2e12672940edbd2dc5d7e72fd7" title=" " alt="" coords="6,5,138,61"/>
+<area shape="rect" id="node3" href="$namespacemom__dynamics__unsplit.html#ac557a7a55605cba7a17074f6375107f6" title=" " alt="" coords="6,86,138,127"/>
+<area shape="rect" id="node4" href="$namespacemom__dynamics__unsplit__rk2.html#a7be251effa3bf4a236ea3feda6fc6d91" title=" " alt="" coords="6,152,138,208"/>
+</map>

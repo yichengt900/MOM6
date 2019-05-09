@@ -1,0 +1,4 @@
+<map id="mom_dyn_horgrid::set_derived_dyn_horgrid" name="mom_dyn_horgrid::set_derived_dyn_horgrid">
+<area shape="rect" id="node1" title="set_derived_dyn_horgrid calculates metric terms that are derived from other metrics." alt="" coords="6,5,135,46"/>
+<area shape="rect" id="node2" href="$namespacemom__dyn__horgrid.html#aa6579f50769698067defbc3c676e0191" title="Adcroft_reciprocal(x) = 1/x for |x|&gt;0 or 0 for x=0." alt="" coords="185,5,333,46"/>
+</map>

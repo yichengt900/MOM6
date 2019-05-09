@@ -1,0 +1,41 @@
+<map id="mom::mom_control_struct" name="mom::mom_control_struct">
+<area shape="rect" id="node1" title="Control structure for this module." alt="" coords="309,1181,456,1208"/>
+<area shape="rect" id="node2" title=" " alt="" coords="17,15,135,41"/>
+<area shape="rect" id="node3" title=" " alt="" coords="17,66,135,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="18,131,134,173"/>
+<area shape="rect" id="node5" title=" " alt="" coords="13,197,139,238"/>
+<area shape="rect" id="node6" title=" " alt="" coords="51,352,101,379"/>
+<area shape="rect" id="node7" title=" " alt="" coords="26,403,126,429"/>
+<area shape="rect" id="node8" title=" " alt="" coords="23,454,129,495"/>
+<area shape="rect" id="node9" title=" " alt="" coords="17,519,135,561"/>
+<area shape="rect" id="node10" title=" " alt="" coords="42,585,110,612"/>
+<area shape="rect" id="node11" title=" " alt="" coords="7,637,145,678"/>
+<area shape="rect" id="node12" title=" " alt="" coords="19,703,133,729"/>
+<area shape="rect" id="node13" title=" " alt="" coords="17,753,135,780"/>
+<area shape="rect" id="node14" title=" " alt="" coords="23,805,129,846"/>
+<area shape="rect" id="node15" title=" " alt="" coords="30,871,122,897"/>
+<area shape="rect" id="node16" title=" " alt="" coords="9,922,143,963"/>
+<area shape="rect" id="node17" title=" " alt="" coords="25,988,127,1015"/>
+<area shape="rect" id="node18" title=" " alt="" coords="15,1039,137,1081"/>
+<area shape="rect" id="node19" title=" " alt="" coords="15,1105,137,1146"/>
+<area shape="rect" id="node20" title=" " alt="" coords="19,1170,133,1211"/>
+<area shape="rect" id="node21" title=" " alt="" coords="8,1236,144,1263"/>
+<area shape="rect" id="node22" title=" " alt="" coords="11,1287,141,1329"/>
+<area shape="rect" id="node23" title=" " alt="" coords="11,1353,141,1394"/>
+<area shape="rect" id="node24" title=" " alt="" coords="5,1419,147,1445"/>
+<area shape="rect" id="node25" title=" " alt="" coords="13,1470,139,1511"/>
+<area shape="rect" id="node26" title=" " alt="" coords="21,1535,131,1577"/>
+<area shape="rect" id="node27" title=" " alt="" coords="47,1601,105,1628"/>
+<area shape="rect" id="node28" title=" " alt="" coords="24,1652,128,1679"/>
+<area shape="rect" id="node29" title=" " alt="" coords="45,1703,107,1729"/>
+<area shape="rect" id="node30" title=" " alt="" coords="11,1754,141,1795"/>
+<area shape="rect" id="node31" title=" " alt="" coords="35,1820,117,1847"/>
+<area shape="rect" id="node32" title=" " alt="" coords="6,1871,146,1897"/>
+<area shape="rect" id="node33" title=" " alt="" coords="14,1922,138,1963"/>
+<area shape="rect" id="node34" title=" " alt="" coords="11,1988,141,2015"/>
+<area shape="rect" id="node35" title=" " alt="" coords="49,2148,103,2175"/>
+<area shape="rect" id="node36" title=" " alt="" coords="13,2199,139,2241"/>
+<area shape="rect" id="node37" title=" " alt="" coords="25,2265,127,2292"/>
+<area shape="rect" id="node38" title=" " alt="" coords="56,2444,96,2471"/>
+<area shape="rect" id="node39" title=" " alt="" coords="28,2495,124,2521"/>
+</map>

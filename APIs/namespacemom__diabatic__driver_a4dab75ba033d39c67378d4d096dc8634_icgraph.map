@@ -1,0 +1,4 @@
+<map id="mom_diabatic_driver::diagnose_diabatic_diff_tendency" name="mom_diabatic_driver::diagnose_diabatic_diff_tendency">
+<area shape="rect" id="node1" title="This routine diagnoses tendencies from application of diabatic diffusion using ALE algorithm...." alt="" coords="177,5,298,61"/>
+<area shape="rect" id="node2" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="6,13,127,54"/>
+</map>

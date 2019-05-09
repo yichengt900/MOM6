@@ -1,0 +1,11 @@
+<map id="mom_lateral_mixing_coeffs::calc_slope_functions" name="mom_lateral_mixing_coeffs::calc_slope_functions">
+<area shape="rect" id="node1" title="Calculates and stores functions of isopycnal slopes, e.g. Sx, Sy, S*N, mostly used in the Visbeck et ..." alt="" coords="5,173,123,229"/>
+<area shape="rect" id="node2" href="$namespacemom__isopycnal__slopes.html#ad8b145434d470eceaf9a151a65a74dd5" title=" " alt="" coords="171,27,306,69"/>
+<area shape="rect" id="node7" href="$namespacemom__lateral__mixing__coeffs.html#a99c2bbbd90d46bebeb2e8bd4c29817dd" title="The original calc_slope_function() that calculated slopes using interface positions only,..." alt="" coords="171,93,306,149"/>
+<area shape="rect" id="node8" href="$namespacemom__lateral__mixing__coeffs.html#ae625fee7e36d68e290b3af57697d0afe" title="Calculates factors used when setting diffusivity coefficients similar to Visbeck et al." alt="" coords="179,173,299,229"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="550,154,674,195"/>
+<area shape="rect" id="node9" href="$namespacemom__diag__mediator.html#a0be5d1cbc6c6f8f63950ce7d9bc6455a" title=" " alt="" coords="355,238,501,279"/>
+<area shape="rect" id="node3" href="$namespacemom__eos.html#a204529f8434a0322314e6ce2a9762436" title="Calls the appropriate subroutine to calculate density derivatives for 1&#45;D array inputs." alt="" coords="370,5,486,46"/>
+<area shape="rect" id="node6" href="$namespacemom__isopycnal__slopes.html#a4a5a4ea71140c8e115264614305840c9" title=" " alt="" coords="363,70,493,111"/>
+<area shape="rect" id="node5" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="723,154,847,195"/>
+</map>

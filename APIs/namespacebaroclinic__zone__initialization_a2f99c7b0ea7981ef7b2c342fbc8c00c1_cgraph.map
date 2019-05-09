@@ -1,0 +1,8 @@
+<map id="baroclinic_zone_initialization::baroclinic_zone_init_temperature_salinity" name="baroclinic_zone_initialization::baroclinic_zone_init_temperature_salinity">
+<area shape="rect" id="node1" title="Initialization of temperature and salinity with the baroclinic zone initial conditions." alt="" coords="6,16,191,72"/>
+<area shape="rect" id="node2" href="$namespacebaroclinic__zone__initialization.html#a72863008aadad2118278f5e0978fd99b" title="Reads the parameters unique to this module." alt="" coords="240,23,395,65"/>
+<area shape="rect" id="node3" href="$namespacemom__file__parser.html#a363628fcd8540de780ebeacf24012229" title=" " alt="" coords="443,5,650,32"/>
+<area shape="rect" id="node5" href="$namespacemom__file__parser.html#a0d01b9a66f5ac12b657c00f1295351bb" title=" " alt="" coords="443,56,650,83"/>
+<area shape="rect" id="node4" href="$namespacemom__file__parser.html#a58777b0faf747d59a793b4e238919dc6" title=" " alt="" coords="699,5,875,32"/>
+<area shape="rect" id="node6" href="$namespacemom__file__parser.html#a73b11b969d303b1fc0ba5235c812fd05" title=" " alt="" coords="701,56,872,83"/>
+</map>

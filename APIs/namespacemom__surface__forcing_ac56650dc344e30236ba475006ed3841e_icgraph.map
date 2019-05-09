@@ -1,0 +1,4 @@
+<map id="mom_surface_forcing::apply_flux_adjustments" name="mom_surface_forcing::apply_flux_adjustments">
+<area shape="rect" id="node1" title="Adds flux adjustments obtained via data_override Component name is &#39;OCN&#39; Available adjustments are:" alt="" coords="184,5,323,46"/>
+<area shape="rect" id="node2" href="$namespacemom__surface__forcing.html#abca0c231a823abb684ce9f7d74f5f965" title=" " alt="" coords="5,5,136,46"/>
+</map>

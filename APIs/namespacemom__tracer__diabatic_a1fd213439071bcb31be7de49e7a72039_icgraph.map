@@ -1,0 +1,14 @@
+<map id="mom_tracer_diabatic::applytracerboundaryfluxesinout" name="mom_tracer_diabatic::applytracerboundaryfluxesinout">
+<area shape="rect" id="node1" title=" " alt="" coords="328,342,504,383"/>
+<area shape="rect" id="node2" href="$namespaceadvection__test__tracer.html#a02a7937d0c46fd2b70a64161d25ed378" title=" " alt="" coords="139,5,269,61"/>
+<area shape="rect" id="node3" href="$namespaceboundary__impulse__tracer.html#aca66c0e29a18f158c998ab10fecd6beb" title=" " alt="" coords="129,85,279,141"/>
+<area shape="rect" id="node4" href="$namespacedome__tracer.html#a51c45f9e7745b7e0ac334c8e29c60bcd" title=" " alt="" coords="129,166,279,207"/>
+<area shape="rect" id="node5" href="$namespaceregional__dyes.html#a071a809a79a9ca752f395a35b4887ca1" title=" " alt="" coords="136,231,272,273"/>
+<area shape="rect" id="node6" href="$namespaceideal__age__example.html#a910b9f6a989e02e130231ce67b708bfe" title=" " alt="" coords="133,297,275,353"/>
+<area shape="rect" id="node7" href="$namespaceisomip__tracer.html#ab39c7461cc8f1db9e0b681b9250abad1" title="This subroutine applies diapycnal diffusion and any other column." alt="" coords="136,378,272,419"/>
+<area shape="rect" id="node8" href="$namespacemom__ocmip2__cfc.html#af97d6b5ffc3e2a02d565592ba52bd39b" title=" " alt="" coords="131,443,277,485"/>
+<area shape="rect" id="node9" href="$namespaceoil__tracer.html#a16435914b962aacb079217f7c88d7b0a" title=" " alt="" coords="146,509,262,550"/>
+<area shape="rect" id="node10" href="$namespacepseudo__salt__tracer.html#a006d8a5e36cc4ed2aed60fb0bace3902" title=" " alt="" coords="145,575,263,631"/>
+<area shape="rect" id="node11" href="$namespacemom.html#ada859fe9e7e841ea281dae323cc4f6ac" title="step_tracers is the main driver for running tracers offline in MOM6. This has been primarily develope..." alt="" coords="149,655,259,681"/>
+<area shape="rect" id="node12" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,655,80,681"/>
+</map>

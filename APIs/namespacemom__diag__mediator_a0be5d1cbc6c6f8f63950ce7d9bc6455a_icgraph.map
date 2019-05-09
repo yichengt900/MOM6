@@ -1,0 +1,12 @@
+<map id="mom_diag_mediator::query_averaging_enabled" name="mom_diag_mediator::query_averaging_enabled">
+<area shape="rect" id="node1" title=" " alt="" coords="517,209,664,250"/>
+<area shape="rect" id="node2" href="$namespacemom__lateral__mixing__coeffs.html#af206bc656869b4fc27d4d7e8a15d438e" title="Calculates and stores the non&#45;dimensional resolution functions." alt="" coords="339,5,456,61"/>
+<area shape="rect" id="node5" href="$namespacemom__lateral__mixing__coeffs.html#a8abf768b636e96aafa9544287624523e" title="Calculates and stores functions of isopycnal slopes, e.g. Sx, Sy, S*N, mostly used in the Visbeck et ..." alt="" coords="144,125,261,181"/>
+<area shape="rect" id="node6" href="$namespacemom__lateral__mixing__coeffs.html#ae625fee7e36d68e290b3af57697d0afe" title="Calculates factors used when setting diffusivity coefficients similar to Visbeck et al." alt="" coords="337,136,457,192"/>
+<area shape="rect" id="node7" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="142,219,263,261"/>
+<area shape="rect" id="node8" href="$namespacemom__forcing__type.html#aa685fdcd5863af264335aa60b5b4c210" title="Offer buoyancy forcing fields for diagnostics for those fields registered as part of register_forcing..." alt="" coords="129,310,277,351"/>
+<area shape="rect" id="node9" href="$namespacemom__forcing__type.html#ab19017105329a14ad5130e2f2aa8e475" title="Offer mechanical forcing fields for diagnostics for those fields registered as part of register_forci..." alt="" coords="326,369,469,410"/>
+<area shape="rect" id="node10" href="$namespacemom__opacity.html#aefadc7465f74c0cab731cf1adf5f3a57" title=" " alt="" coords="325,267,469,293"/>
+<area shape="rect" id="node3" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="151,43,254,69"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,317,80,344"/>
+</map>

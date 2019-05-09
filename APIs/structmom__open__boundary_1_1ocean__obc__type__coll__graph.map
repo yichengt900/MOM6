@@ -1,0 +1,8 @@
+<map id="mom_open_boundary::ocean_obc_type" name="mom_open_boundary::ocean_obc_type">
+<area shape="rect" id="node1" title="Open&#45;boundary data." alt="" coords="253,467,387,509"/>
+<area shape="rect" id="node2" title=" " alt="" coords="65,5,116,32"/>
+<area shape="rect" id="node4" href="$structmom__open__boundary_1_1obc__segment__type.html" title="Open boundary segment type &#45; we&#39;ll have one for each open segment to describe that segment." alt="" coords="403,279,536,321"/>
+<area shape="rect" id="node3" title=" " alt="" coords="155,287,268,313"/>
+<area shape="rect" id="node5" title=" " alt="" coords="340,5,380,32"/>
+<area shape="rect" id="node6" title=" " alt="" coords="513,5,567,32"/>
+</map>

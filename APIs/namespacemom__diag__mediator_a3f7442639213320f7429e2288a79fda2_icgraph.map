@@ -1,0 +1,28 @@
+<map id="mom_diag_mediator::get_new_diag_id" name="mom_diag_mediator::get_new_diag_id">
+<area shape="rect" id="node1" title="Returns a new diagnostic id, it may be necessary to expand the diagnostics array." alt="" coords="1121,491,1247,533"/>
+<area shape="rect" id="node2" href="$namespacemom__diag__mediator.html#a8415b33a337b1fbc7535688eca85ab37" title="Create a diagnostic type and attached to list." alt="" coords="945,415,1071,457"/>
+<area shape="rect" id="node24" href="$namespacemom__diag__mediator.html#afb4254e1cfbbcfc43028f14915173f80" title=" " alt="" coords="945,550,1071,591"/>
+<area shape="rect" id="node25" href="$namespacemom__diag__mediator.html#abe591ed2565e9f026c5be055bc2fc0b7" title="Registers a static diagnostic, returning an integer handle." alt="" coords="769,526,895,567"/>
+<area shape="rect" id="node3" href="$namespacemom__diag__mediator.html#ae50b35cba800ac5fd8975929fd2b9f4a" title="Returns True if either the native of CMOr version of the diagnostic were registered...." alt="" coords="769,391,895,447"/>
+<area shape="rect" id="node4" href="$namespacemom__diag__mediator.html#aa791f75f899ae9b7cd4756165a9c2a1b" title="Returns the &quot;diag_mediator&quot; handle for a group (native, CMOR, z&#45;coord, ...) of diagnostics derived fr..." alt="" coords="563,371,690,413"/>
+<area shape="rect" id="node5" href="$namespacemom__ale.html#a994efb3c62fc5f63da2617f29cbd6be1" title="Initialize diagnostics for the ALE module." alt="" coords="333,155,461,197"/>
+<area shape="rect" id="node6" href="$namespacemom__coriolisadv.html#ad3ce07f23ce7b484a5a9e0c0abe8b1cd" title="Initializes the control structure for coriolisadv_cs." alt="" coords="310,221,485,248"/>
+<area shape="rect" id="node11" href="$namespacemom__diag__mediator.html#a21267e25d12fa3e5d2540d2a299d2d2c" title="Registers a diagnostic using the information encapsulated in the vardesc type argument and returns an..." alt="" coords="334,273,461,314"/>
+<area shape="rect" id="node13" href="$namespacemom__diapyc__energy__req.html#aa0ce122f4dc6d9a6ec9e17996484bb76" title=" " alt="" coords="326,338,469,379"/>
+<area shape="rect" id="node14" href="$namespacemom__diffconvection.html#ac36d9d7fd69e4422e7de01242094ff34" title=" " alt="" coords="339,403,455,445"/>
+<area shape="rect" id="node15" href="$namespacemom__int__tide__input.html#a29a707637da633ccee155b53557b5f17" title=" " alt="" coords="340,469,455,510"/>
+<area shape="rect" id="node16" href="$namespacemom__kpp.html#a9c834424b6e067e280928db3700ec77e" title="Initialize the CVmix KPP module and set up diagnostics Returns True if KPP is to be used,..." alt="" coords="342,535,453,561"/>
+<area shape="rect" id="node17" href="$namespacemom__opacity.html#ab8dbcd70b93f5bd77b2a525cd73f0eb9" title=" " alt="" coords="326,585,469,612"/>
+<area shape="rect" id="node19" href="$namespacemom__set__diffusivity.html#ac0a2a098bc7dc3b087a4bae87511b7ca" title=" " alt="" coords="340,637,455,678"/>
+<area shape="rect" id="node20" href="$namespacemom__neutral__diffusion.html#a87cf821c52ac1111493d4168f0a91d17" title="Diagnostic handles for neutral diffusion tendencies." alt="" coords="322,7,473,49"/>
+<area shape="rect" id="node23" href="$namespacemom__tracer__hor__diff.html#a2fc116afe7913994a8bfc9570efb4b9f" title="Initialize lateral tracer diffusion module." alt="" coords="336,90,459,131"/>
+<area shape="rect" id="node7" href="$namespacemom__dynamics__legacy__split.html#aef55fe2e12672940edbd2dc5d7e72fd7" title=" " alt="" coords="129,136,261,192"/>
+<area shape="rect" id="node8" href="$namespacemom__dynamics__split__rk2.html#a3bae09afc9136333ab281704dc9d9415" title="This subroutine initializes all of the variables that are used by this dynamic core,..." alt="" coords="135,216,255,272"/>
+<area shape="rect" id="node9" href="$namespacemom__dynamics__unsplit.html#ac557a7a55605cba7a17074f6375107f6" title=" " alt="" coords="129,297,261,338"/>
+<area shape="rect" id="node10" href="$namespacemom__dynamics__unsplit__rk2.html#a7be251effa3bf4a236ea3feda6fc6d91" title=" " alt="" coords="129,56,261,112"/>
+<area shape="rect" id="node12" href="$namespacemom__diag__to__z.html#a90526b2f59f94c6af2f525a221029772" title=" " alt="" coords="128,362,261,403"/>
+<area shape="rect" id="node18" href="$namespacemom__diabatic__driver.html#afa0b30bd6f0e080bcacbd6dcb15ff990" title="This routine initializes the diabatic driver module." alt="" coords="134,637,255,678"/>
+<area shape="rect" id="node21" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="135,5,254,32"/>
+<area shape="rect" id="node22" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node26" href="$namespacemom__geothermal.html#a0abbb7953860e3357bbd3d35f46fd851" title=" " alt="" coords="534,643,719,669"/>
+</map>

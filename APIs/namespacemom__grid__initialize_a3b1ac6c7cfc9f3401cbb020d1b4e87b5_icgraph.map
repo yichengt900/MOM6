@@ -1,0 +1,6 @@
+<map id="mom_grid_initialize::initialize_masks" name="mom_grid_initialize::initialize_masks">
+<area shape="rect" id="node1" title="initialize_masks initializes the grid masks and any metrics that come with masks already applied." alt="" coords="477,5,589,46"/>
+<area shape="rect" id="node2" href="$namespacemom__fixed__initialization.html#a6c1c054d9cda9f1bd11abba748614c92" title="MOM_initialize_fixed sets up time&#45;invariant quantities related to MOM6&#39;s horizontal grid,..." alt="" coords="296,5,429,46"/>
+<area shape="rect" id="node3" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,12,247,39"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,12,80,39"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="mom_ale::ale_offline_tracer_final" name="mom_ale::ale_offline_tracer_final">
+<area shape="rect" id="node1" title="Remaps all tracers from h onto h_target. This is intended to be called when tracers are done offline...." alt="" coords="288,5,408,46"/>
+<area shape="rect" id="node2" href="$namespacemom.html#ada859fe9e7e841ea281dae323cc4f6ac" title="step_tracers is the main driver for running tracers offline in MOM6. This has been primarily develope..." alt="" coords="129,12,239,39"/>
+<area shape="rect" id="node3" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,12,80,39"/>
+</map>

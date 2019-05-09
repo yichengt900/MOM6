@@ -1,0 +1,7 @@
+<map id="mom_diag_mediator::get_new_diag_id" name="mom_diag_mediator::get_new_diag_id">
+<area shape="rect" id="node1" title="Returns a new diagnostic id, it may be necessary to expand the diagnostics array." alt="" coords="6,38,133,79"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a33bcd190d460095104954f2e654f9fe6" title="Issues a FATAL error if the assertion fails, i.e. the first argument is false." alt="" coords="183,5,307,46"/>
+<area shape="rect" id="node5" href="$namespacemom__diag__mediator.html#a883862f004e30bbc5211f38635511ba0" title="Initializes a diag_type (used after allocating new memory)" alt="" coords="182,70,309,111"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="358,5,482,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="531,5,655,46"/>
+</map>

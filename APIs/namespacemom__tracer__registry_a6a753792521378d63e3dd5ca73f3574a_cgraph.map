@@ -1,0 +1,8 @@
+<map id="mom_tracer_registry::register_tracer" name="mom_tracer_registry::register_tracer">
+<area shape="rect" id="node1" title="This subroutine registers a tracer to be advected and laterally diffused." alt="" coords="6,23,127,64"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="555,23,679,64"/>
+<area shape="rect" id="node4" href="$namespacemom__io.html#a23e82d1d89d9bb1c9bdf802ce80d4508" title="This routine queries vardesc." alt="" coords="176,30,312,57"/>
+<area shape="rect" id="node6" href="$namespacemom__tracer__registry.html#a452937bf1f9d01a47d1a80793e317b33" title="This routine include declares and sets the variable &quot;version&quot;." alt="" coords="373,81,494,123"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="729,52,853,93"/>
+<area shape="rect" id="node5" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="360,30,507,57"/>
+</map>

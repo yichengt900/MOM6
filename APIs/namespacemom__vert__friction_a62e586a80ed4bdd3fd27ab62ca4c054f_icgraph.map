@@ -1,0 +1,5 @@
+<map id="mom_vert_friction::updatecfltruncationvalue" name="mom_vert_friction::updatecfltruncationvalue">
+<area shape="rect" id="node1" title="Update the CFL truncation value as a function of time. If called with the optional argument activate=..." alt="" coords="222,50,359,91"/>
+<area shape="rect" id="node2" href="$namespacemom__dynamics__split__rk2.html#a3bae09afc9136333ab281704dc9d9415" title="This subroutine initializes all of the variables that are used by this dynamic core,..." alt="" coords="29,5,149,61"/>
+<area shape="rect" id="node3" href="$namespacemom__dynamics__split__rk2.html#a81cce65643a8cf94979d68354a9a1979" title="RK2 splitting for time stepping MOM adiabatic dynamics." alt="" coords="6,86,173,127"/>
+</map>

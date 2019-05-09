@@ -1,0 +1,6 @@
+<map id="mom_forcing_type::forcing_diagnostics" name="mom_forcing_type::forcing_diagnostics">
+<area shape="rect" id="node1" title="Offer buoyancy forcing fields for diagnostics for those fields registered as part of register_forcing..." alt="" coords="6,70,154,111"/>
+<area shape="rect" id="node2" href="$namespacemom__spatial__means.html#aee0e9ccdac32367f6ae1064f49e41771" title=" " alt="" coords="213,5,339,46"/>
+<area shape="rect" id="node3" href="$namespacemom__spatial__means.html#aa49abab62973a263d6f5a1c776f62a11" title=" " alt="" coords="213,70,339,111"/>
+<area shape="rect" id="node4" href="$namespacemom__diag__mediator.html#a0be5d1cbc6c6f8f63950ce7d9bc6455a" title=" " alt="" coords="203,135,349,177"/>
+</map>

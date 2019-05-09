@@ -1,0 +1,4 @@
+<map id="mom_forcing_type::mech_forcing_diags" name="mom_forcing_type::mech_forcing_diags">
+<area shape="rect" id="node1" title="Offer mechanical forcing fields for diagnostics for those fields registered as part of register_forci..." alt="" coords="6,5,149,46"/>
+<area shape="rect" id="node2" href="$namespacemom__diag__mediator.html#a0be5d1cbc6c6f8f63950ce7d9bc6455a" title=" " alt="" coords="197,5,344,46"/>
+</map>

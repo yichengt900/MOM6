@@ -1,0 +1,7 @@
+<map id="mom_wave_speed::wave_speeds" name="mom_wave_speed::wave_speeds">
+<area shape="rect" id="node1" title="Calculates the wave speeds for the first few barolinic modes." alt="" coords="6,63,149,105"/>
+<area shape="rect" id="node2" href="$namespacemom__eos.html#a204529f8434a0322314e6ce2a9762436" title="Calls the appropriate subroutine to calculate density derivatives for 1&#45;D array inputs." alt="" coords="223,5,339,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="414,63,538,105"/>
+<area shape="rect" id="node5" href="$namespacemom__wave__speed.html#a1d633de4db3e5c4e4a7d313c428c7a56" title="Calculate the determinant of a tridiagonal matrix with diagonals a,b&#45;lam,c where lam is constant acro..." alt="" coords="197,121,365,148"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="587,63,711,105"/>
+</map>

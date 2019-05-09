@@ -1,0 +1,4 @@
+<map id="mom_regridding::build_zstar_grid" name="mom_regridding::build_zstar_grid">
+<area shape="rect" id="node1" title="Builds a z*&#45;ccordinate grid with partial steps (Adcroft and Campin, 2004). z* is defined as z* = (z&#45;e..." alt="" coords="237,5,365,46"/>
+<area shape="rect" id="node2" href="$namespacemom__regridding.html#abf6d4e0d14c8b3b69fa4ffca42122c5f" title=" " alt="" coords="6,12,189,39"/>
+</map>

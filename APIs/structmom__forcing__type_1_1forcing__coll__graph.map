@@ -1,0 +1,7 @@
+<map id="mom_forcing_type::forcing" name="mom_forcing_type::forcing">
+<area shape="rect" id="node1" title="Structure that contains pointers to the boundary forcing used to drive the liquid ocean simulated by ..." alt="" coords="145,349,292,376"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,104,56,131"/>
+<area shape="rect" id="node3" href="$structcoupler__types__mod_1_1coupler__2d__bc__type.html" title=" " alt="" coords="81,97,201,138"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,5,233,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="324,104,364,131"/>
+</map>

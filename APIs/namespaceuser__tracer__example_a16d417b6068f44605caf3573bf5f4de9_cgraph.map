@@ -1,0 +1,12 @@
+<map id="user_tracer_example::user_initialize_tracer" name="user_tracer_example::user_initialize_tracer">
+<area shape="rect" id="node1" title=" " alt="" coords="5,145,131,186"/>
+<area shape="rect" id="node2" href="$namespacemom__tracer__registry.html#ac008525fee272a225a19998ae437b5bf" title="This subroutine adds diagnostic arrays for a tracer that has previously been registered by a call to ..." alt="" coords="372,5,511,46"/>
+<area shape="rect" id="node5" href="$namespacemom__tracer__registry.html#a6210b799ee25a114d4b87bdfaa6d0c7a" title="This subroutine adds open boundary condition concentrations for a tracer that has previously been reg..." alt="" coords="180,61,319,102"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="563,170,687,211"/>
+<area shape="rect" id="node6" href="$namespacemom__io.html#a23e82d1d89d9bb1c9bdf802ce80d4508" title="This routine queries vardesc." alt="" coords="181,177,317,204"/>
+<area shape="rect" id="node8" href="$namespacemom__diag__to__z.html#a6946a3316715041c5944df17db1aef74" title=" " alt="" coords="179,229,319,270"/>
+<area shape="rect" id="node10" href="$namespacemom__sponge.html#af3da4a8b352c4130919d7bfedf1a5a3e" title=" " alt="" coords="379,294,504,335"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="737,215,861,257"/>
+<area shape="rect" id="node7" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="368,177,515,204"/>
+<area shape="rect" id="node9" href="$namespacemom__diag__to__z.html#adde57f2503f5c182af511fba0f4c83ea" title=" " alt="" coords="371,229,511,270"/>
+</map>

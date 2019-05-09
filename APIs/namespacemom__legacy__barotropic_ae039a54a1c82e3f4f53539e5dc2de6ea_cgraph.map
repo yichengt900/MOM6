@@ -1,0 +1,20 @@
+<map id="mom_legacy_barotropic::legacy_btstep" name="mom_legacy_barotropic::legacy_btstep">
+<area shape="rect" id="node1" title=" " alt="" coords="5,494,141,535"/>
+<area shape="rect" id="node2" href="$namespacemom__legacy__barotropic.html#a11b9afeb7e6e0775d8958639488a4456" title=" " alt="" coords="192,5,328,46"/>
+<area shape="rect" id="node3" href="$namespacemom__legacy__barotropic.html#a272a849d7cde70c0da337ad5ebdc0f62" title=" " alt="" coords="192,122,328,163"/>
+<area shape="rect" id="node6" href="$namespacemom__legacy__barotropic.html#aa06249abf57a70498ab07eee534e5e52" title=" " alt="" coords="191,239,329,281"/>
+<area shape="rect" id="node7" href="$namespacemom__legacy__barotropic.html#ae08f338ae6066f7eb91ce45e9a0218b4" title=" " alt="" coords="192,305,328,346"/>
+<area shape="rect" id="node8" href="$namespacemom__diag__mediator.html#a91244f765f2964dfb11f8787f65042f1" title=" " alt="" coords="197,370,323,411"/>
+<area shape="rect" id="node9" href="$namespacemom__legacy__barotropic.html#ab334a4e8ef23ec6d784b24b6336d22f7" title=" " alt="" coords="192,435,328,477"/>
+<area shape="rect" id="node4" href="$namespacemom__legacy__barotropic.html#a6089379e215508c9dd32d0b3819dbbe7" title=" " alt="" coords="379,77,515,118"/>
+<area shape="rect" id="node5" href="$namespacemom__legacy__barotropic.html#a381d788c4648d9b4aa94a12319623030" title=" " alt="" coords="379,167,515,209"/>
+<area shape="rect" id="node10" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="563,545,687,586"/>
+<area shape="rect" id="node11" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="385,603,509,645"/>
+<area shape="rect" id="node12" href="$namespacemom__error__handler.html#a1c462df7b61f1296407b4af51dfeceab" title=" " alt="" coords="385,486,509,527"/>
+<area shape="rect" id="node13" href="$namespacemom__legacy__barotropic.html#a6e0524c05da903129f241c22f666d058" title=" " alt="" coords="189,822,331,863"/>
+<area shape="rect" id="node15" href="$namespacemom__legacy__barotropic.html#a4ec7ded997089119e526b3c0542d21bb" title=" " alt="" coords="192,654,328,695"/>
+<area shape="rect" id="node14" href="$namespacemom__legacy__barotropic.html#ac501c7f590b7b9f0cedb48da7d14c0aa" title=" " alt="" coords="379,847,515,889"/>
+<area shape="rect" id="node18" href="$namespacemom__tidal__forcing.html#a0a1564c68489a35802c626a07f4629d7" title=" " alt="" coords="195,939,325,981"/>
+<area shape="rect" id="node16" href="$namespacemom__legacy__barotropic.html#ad9add945a282d75804293003405f794d" title=" " alt="" coords="379,683,515,725"/>
+<area shape="rect" id="node17" href="$namespacemom__legacy__barotropic.html#aa500b44df0ce8db775bed7840dfb436c" title=" " alt="" coords="379,757,515,798"/>
+</map>

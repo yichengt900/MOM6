@@ -1,0 +1,5 @@
+<map id="mom_vert_friction::vertvisc_limit_vel" name="mom_vert_friction::vertvisc_limit_vel">
+<area shape="rect" id="node1" title="Velocity components which exceed a threshold for physically reasonable values are truncated...." alt="" coords="187,50,301,91"/>
+<area shape="rect" id="node2" href="$namespacemom__dynamics__legacy__split.html#ae34fe0561f87dc05c2fad64bf6d5a1ee" title=" " alt="" coords="6,5,138,61"/>
+<area shape="rect" id="node3" href="$namespacemom__vert__friction.html#afcb3ca5d907b32d50101f90e93d0b160" title="Perform a fully implicit vertical diffusion of momentum. Stress top and bottom boundary conditions ar..." alt="" coords="15,86,129,127"/>
+</map>

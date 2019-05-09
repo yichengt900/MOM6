@@ -1,0 +1,23 @@
+<map id="mom_coord_initialization::mom_initialize_coord" name="mom_coord_initialization::mom_initialize_coord">
+<area shape="rect" id="node1" title="MOM_initialize_coord sets up time&#45;invariant quantities related to MOM6&#39;s vertical coordinate." alt="" coords="5,383,144,425"/>
+<area shape="rect" id="node2" href="$namespacebfb__initialization.html#a681cb69f1a6fe142e5baa6aee5f57060" title=" " alt="" coords="243,5,339,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a9cda07a87815f0e5594066162b4345c3" title="Writes a message about entering a subroutine if call tree reporting is active." alt="" coords="438,318,562,359"/>
+<area shape="rect" id="node6" href="$namespacemom__error__handler.html#a88ea67781e2ed9b73ab7eac8ea5e8578" title="Writes a message about leaving a subroutine if call tree reporting is active." alt="" coords="438,383,562,425"/>
+<area shape="rect" id="node7" href="$namespacemom__coord__initialization.html#a8db4253bf3b8ce75334db0c010ba570a" title=" " alt="" coords="221,318,360,359"/>
+<area shape="rect" id="node8" href="$namespacemom__coord__initialization.html#a0ea7e12068fd0a186d1129dde25112c5" title=" " alt="" coords="219,383,362,425"/>
+<area shape="rect" id="node9" href="$namespacemom__coord__initialization.html#ac7fbb06dced36178003cea6f30bb8251" title=" " alt="" coords="221,449,360,505"/>
+<area shape="rect" id="node10" href="$namespacemom__coord__initialization.html#a47eea61df5d0ea7f91d52dd17e6532e0" title=" " alt="" coords="215,530,367,571"/>
+<area shape="rect" id="node11" href="$namespacemom__coord__initialization.html#aa10f125cb362adb012f56feb46d9e0a9" title=" " alt="" coords="215,122,366,163"/>
+<area shape="rect" id="node12" href="$namespacemom__coord__initialization.html#a2497b25bed6dd92fadd4193b7532ef64" title=" " alt="" coords="221,187,360,229"/>
+<area shape="rect" id="node13" href="$namespacemom__coord__initialization.html#a79fb324b0147fafc4e21093a1ceeb016" title=" " alt="" coords="221,253,360,294"/>
+<area shape="rect" id="node14" href="$namespacemom__verticalgrid.html#aca0b871025638d55736e051a43906719" title="This sets the coordinate data for the &quot;layer mode&quot; of the isopycnal model." alt="" coords="193,779,389,805"/>
+<area shape="rect" id="node15" href="$namespaceuser__initialization.html#a541d25539cbb198ae0ed7c1356f267cf" title="Set vertical coordinates." alt="" coords="239,647,342,689"/>
+<area shape="rect" id="node18" href="$namespacemom__coord__initialization.html#a45fb62504679264febbaa0617332ecc1" title=" " alt="" coords="221,713,360,754"/>
+<area shape="rect" id="node3" href="$namespacebfb__initialization.html#acf4641a95e7aa3b9953db2b04a627c97" title="Write output about the parameter values being used." alt="" coords="452,5,548,46"/>
+<area shape="rect" id="node5" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="1169,383,1293,425"/>
+<area shape="rect" id="node16" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="995,590,1119,631"/>
+<area shape="rect" id="node17" href="$namespaceuser__initialization.html#aebfc0db710e83bae83f08e1a774256dd" title="Write output about the parameter values being used." alt="" coords="449,649,551,690"/>
+<area shape="rect" id="node19" href="$namespacemom__io.html#a39c3ccc06bb1a6e446af2ee9010eba16" title="Returns a vardesc type whose elements have been filled with the provided fields. The argument name is..." alt="" coords="445,717,555,744"/>
+<area shape="rect" id="node20" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="800,667,947,693"/>
+<area shape="rect" id="node21" href="$namespacemom__io.html#af96b29cb8410d557e8e452b81586223b" title="This routine modifies the named elements of a vardesc type. All arguments are optional,..." alt="" coords="611,717,751,744"/>
+</map>

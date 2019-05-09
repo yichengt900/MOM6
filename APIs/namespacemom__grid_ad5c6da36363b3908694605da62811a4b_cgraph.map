@@ -1,0 +1,4 @@
+<map id="mom_grid::set_derived_metrics" name="mom_grid::set_derived_metrics">
+<area shape="rect" id="node1" title="set_derived_metrics calculates metric terms that are derived from other metrics." alt="" coords="5,5,136,46"/>
+<area shape="rect" id="node2" href="$namespacemom__grid.html#a49cb0213b535091f3c12e9152fbbda03" title="Adcroft_reciprocal(x) = 1/x for |x|&gt;0 or 0 for x=0." alt="" coords="185,12,346,39"/>
+</map>

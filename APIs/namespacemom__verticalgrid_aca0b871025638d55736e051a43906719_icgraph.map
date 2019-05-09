@@ -1,0 +1,6 @@
+<map id="mom_verticalgrid::setverticalgridaxes" name="mom_verticalgrid::setverticalgridaxes">
+<area shape="rect" id="node1" title="This sets the coordinate data for the &quot;layer mode&quot; of the isopycnal model." alt="" coords="483,12,679,39"/>
+<area shape="rect" id="node2" href="$namespacemom__coord__initialization.html#a6e2f4c11bc99476ea9c64a9aceac3b81" title="MOM_initialize_coord sets up time&#45;invariant quantities related to MOM6&#39;s vertical coordinate." alt="" coords="296,5,435,46"/>
+<area shape="rect" id="node3" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,12,247,39"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,12,80,39"/>
+</map>

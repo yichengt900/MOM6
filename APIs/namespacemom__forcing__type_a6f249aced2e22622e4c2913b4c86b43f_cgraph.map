@@ -1,0 +1,6 @@
+<map id="mom_forcing_type::extractfluxes2d" name="mom_forcing_type::extractfluxes2d">
+<area shape="rect" id="node1" title="2d wrapper for 1d extract fluxes from surface fluxes type. This subroutine extracts fluxes from the s..." alt="" coords="5,12,192,39"/>
+<area shape="rect" id="node2" href="$namespacemom__forcing__type.html#ab67e7c2e99099bcf22d12885f349e1e4" title="This subroutine extracts fluxes from the surface fluxes type. It works on a j&#45;row for optimization pu..." alt="" coords="240,12,427,39"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="475,5,599,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="649,5,773,46"/>
+</map>

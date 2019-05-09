@@ -1,0 +1,9 @@
+<map id="mom_diag_remap::diag_remap_configure_axes" name="mom_diag_remap::diag_remap_configure_axes">
+<area shape="rect" id="node1" title="Configure the vertical axes for a diagnostic remapping control structure. Reads a configuration param..." alt="" coords="6,70,143,111"/>
+<area shape="rect" id="node2" href="$namespaceregrid__consts.html#a06ccba5b7b038bed853606a315df306a" title="Parse a string parameter specifying the coordinate mode and return the appropriate enumerated integer..." alt="" coords="217,27,386,53"/>
+<area shape="rect" id="node6" href="$namespacemom__regridding.html#abfaa6d8cb64908f5bd1f39f517fa491d" title="Query the target coordinate interface positions." alt="" coords="193,77,410,104"/>
+<area shape="rect" id="node7" href="$namespacemom__string__functions.html#a4d76e9e8c2cd53f210b02006924a9212" title=" " alt="" coords="238,129,365,170"/>
+<area shape="rect" id="node3" href="$namespacemom__string__functions.html#aca148baf726de2f028b7e7baad3c85d4" title=" " alt="" coords="459,5,586,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="461,70,585,111"/>
+<area shape="rect" id="node5" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="635,70,759,111"/>
+</map>

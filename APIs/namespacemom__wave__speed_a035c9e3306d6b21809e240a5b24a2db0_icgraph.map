@@ -1,0 +1,6 @@
+<map id="mom_wave_speed::wave_speed_set_param" name="mom_wave_speed::wave_speed_set_param">
+<area shape="rect" id="node1" title="Sets internal parameters for MOM_wave_speed." alt="" coords="382,38,525,79"/>
+<area shape="rect" id="node2" href="$namespacemom__wave__speed.html#a46e21529ec8098b0b19053afa133b971" title="Initialize control structure for MOM_wave_speed." alt="" coords="190,38,333,79"/>
+<area shape="rect" id="node3" href="$namespacemom__diagnostics.html#ab2108574e351f6deb812da3faf437278" title=" " alt="" coords="6,5,141,46"/>
+<area shape="rect" id="node4" href="$namespacemom__lateral__mixing__coeffs.html#aeb658054e8d4d723dff397f8ae186e4a" title="Initializes the variables mixing coefficients container." alt="" coords="15,70,132,111"/>
+</map>

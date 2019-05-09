@@ -1,0 +1,7 @@
+<map id="mom_wave_speed::wave_speed" name="mom_wave_speed::wave_speed">
+<area shape="rect" id="node1" title="Calculates the wave speed of the first baroclinic mode." alt="" coords="481,50,623,91"/>
+<area shape="rect" id="node2" href="$namespacemom__lateral__mixing__coeffs.html#af206bc656869b4fc27d4d7e8a15d438e" title="Calculates and stores the non&#45;dimensional resolution functions." alt="" coords="297,5,415,61"/>
+<area shape="rect" id="node5" href="$namespacemom__diagnostics.html#abb6644248c28ab2e952361bfec436063" title=" " alt="" coords="281,86,431,127"/>
+<area shape="rect" id="node3" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="129,20,231,47"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,20,80,47"/>
+</map>

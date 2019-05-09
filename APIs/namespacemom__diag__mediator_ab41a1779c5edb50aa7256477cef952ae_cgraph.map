@@ -1,0 +1,7 @@
+<map id="mom_diag_mediator::post_xy_average" name="mom_diag_mediator::post_xy_average">
+<area shape="rect" id="node1" title="Post the horizontally area&#45;averaged diagnostic." alt="" coords="6,5,133,46"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a33bcd190d460095104954f2e654f9fe6" title="Issues a FATAL error if the assertion fails, i.e. the first argument is false." alt="" coords="398,5,522,46"/>
+<area shape="rect" id="node5" href="$namespacemom__diag__remap.html#ab39f06d222661c6fc9175e3787f40525" title="Horizontally average field." alt="" coords="181,34,349,75"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="571,5,695,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="745,5,869,46"/>
+</map>

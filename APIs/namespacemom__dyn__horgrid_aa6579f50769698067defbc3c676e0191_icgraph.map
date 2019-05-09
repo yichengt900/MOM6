@@ -1,0 +1,12 @@
+<map id="mom_dyn_horgrid::adcroft_reciprocal" name="mom_dyn_horgrid::adcroft_reciprocal">
+<area shape="rect" id="node1" title="Adcroft_reciprocal(x) = 1/x for |x|&gt;0 or 0 for x=0." alt="" coords="867,49,1015,90"/>
+<area shape="rect" id="node2" href="$namespacemom__dyn__horgrid.html#aefa448039e24b26fe06f9251848b6aac" title="set_derived_dyn_horgrid calculates metric terms that are derived from other metrics." alt="" coords="689,49,818,90"/>
+<area shape="rect" id="node3" href="$namespacemom__transcribe__grid.html#a426ae345ad289eabaf68aeff02019753" title="Copies information from an ocean_grid_type into a dynamic (shared) horizontal grid type." alt="" coords="480,5,640,46"/>
+<area shape="rect" id="node6" href="$namespacemom__grid__initialize.html#a235a9712823e2f78e4958e8d681b6ba4" title="set_grid_metrics is used to set the primary values in the model&#39;s horizontal grid...." alt="" coords="504,91,616,133"/>
+<area shape="rect" id="node4" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,91,247,117"/>
+<area shape="rect" id="node5" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,141,80,168"/>
+<area shape="rect" id="node7" href="$MOM__sum__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="327,51,401,77"/>
+<area shape="rect" id="node8" href="$namespacemom__ice__shelf.html#ae315e8464ef8a20062e3bccb61886755" title=" " alt="" coords="297,167,431,209"/>
+<area shape="rect" id="node10" href="$namespacemom__fixed__initialization.html#a6c1c054d9cda9f1bd11abba748614c92" title="MOM_initialize_fixed sets up time&#45;invariant quantities related to MOM6&#39;s horizontal grid,..." alt="" coords="297,102,431,143"/>
+<area shape="rect" id="node9" href="$ice__shelf__driver_8F90.html#aec5bef92f0dad343f545cd8d62e378d8" title=" " alt="" coords="151,141,225,168"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="mom_tracer_registry::add_tracer_obc_values" name="mom_tracer_registry::add_tracer_obc_values">
+<area shape="rect" id="node1" title="This subroutine adds open boundary condition concentrations for a tracer that has previously been reg..." alt="" coords="661,70,800,111"/>
+<area shape="rect" id="node2" href="$namespacedome__tracer.html#acbbc86d4dbc4997c0cd55aa498d2c668" title=" " alt="" coords="484,5,609,46"/>
+<area shape="rect" id="node3" href="$namespacemom__open__boundary.html#a9c346694db6b5d7f355703167d22f5c1" title="Sets the initial definitions of the characteristic open boundary conditions." alt="" coords="480,70,613,111"/>
+<area shape="rect" id="node7" href="$namespaceuser__tracer__example.html#a16d417b6068f44605caf3573bf5f4de9" title=" " alt="" coords="484,135,609,177"/>
+<area shape="rect" id="node4" href="$namespacemom__state__initialization.html#af4e854627c6572332ba3fd895f169321" title=" " alt="" coords="297,70,431,111"/>
+<area shape="rect" id="node5" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,77,247,104"/>
+<area shape="rect" id="node6" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,77,80,104"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="mom_regridding::get_polynomial_coordinate" name="mom_regridding::get_polynomial_coordinate">
+<area shape="rect" id="node1" title=" " alt="" coords="819,38,954,79"/>
+<area shape="rect" id="node2" href="$namespacemom__regridding.html#a12dff5ec4c479e77db1813a8d53db7c2" title=" " alt="" coords="590,45,770,72"/>
+<area shape="rect" id="node3" href="$namespacemom__regridding.html#a799aacb5c6e7ab70f8177ca8b4a5330b" title=" " alt="" coords="413,5,541,46"/>
+<area shape="rect" id="node6" href="$namespacemom__regridding.html#acbe376c457e1ea0c4514b948cbf5144b" title=" " alt="" coords="413,70,541,111"/>
+<area shape="rect" id="node4" href="$namespacemom__regridding.html#a58a19305bbdab26bfa4f336dfac8c4f8" title=" " alt="" coords="237,5,365,46"/>
+<area shape="rect" id="node5" href="$namespacemom__regridding.html#abf6d4e0d14c8b3b69fa4ffca42122c5f" title=" " alt="" coords="6,45,189,72"/>
+<area shape="rect" id="node7" href="$namespacemom__regridding.html#a3375da62433b875eed537feeba1ae1b3" title="Builds a simple HyCOM&#45;like grid with the deepest location of potential density interpolated from the ..." alt="" coords="237,70,365,111"/>
+</map>

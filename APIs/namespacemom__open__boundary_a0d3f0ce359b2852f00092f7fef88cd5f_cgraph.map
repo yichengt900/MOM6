@@ -1,0 +1,12 @@
+<map id="mom_open_boundary::open_boundary_config" name="mom_open_boundary::open_boundary_config">
+<area shape="rect" id="node1" title="Enables OBC module and reads configuration parameters." alt="" coords="5,109,139,150"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="729,105,853,146"/>
+<area shape="rect" id="node4" href="$namespacemom__open__boundary.html#a709a33b9e33b5689d5ca73349ed51fb6" title="Deallocate open boundary data." alt="" coords="187,43,323,85"/>
+<area shape="rect" id="node5" href="$namespacemom__string__functions.html#a60262e56f544e4613754df43bf50652e" title="Returns string with all spaces removed." alt="" coords="191,109,318,150"/>
+<area shape="rect" id="node6" href="$namespacemom__open__boundary.html#ab7c14cc1f67490ff9326c35471fb7ef7" title="Parse an OBC_SEGMENT_%%% string starting with &quot;I=&quot; and configure placement and type of OBC accordingl..." alt="" coords="188,174,321,215"/>
+<area shape="rect" id="node10" href="$namespacemom__open__boundary.html#ae298511b7acc78ed5cd780ad967318cc" title="Parse an OBC_SEGMENT_%%% string starting with &quot;J=&quot; and configure placement and type of OBC accordingl..." alt="" coords="188,239,321,281"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="902,105,1026,146"/>
+<area shape="rect" id="node7" href="$namespacemom__open__boundary.html#ad40be6b6ce4c94040b7de59bde9be77f" title="Parse an OBC_SEGMENT_%%% string." alt="" coords="371,174,504,215"/>
+<area shape="rect" id="node8" href="$namespacemom__string__functions.html#aad76dee92b69dab4488da049fe11cdb8" title="Returns the string corresponding to the nth word in the argument or &quot;&quot; if the string is not long enou..." alt="" coords="553,214,679,255"/>
+<area shape="rect" id="node9" href="$MOM__open__boundary_8F90.html#a0793b1a5746e6ead6bff50c3a52cae90" title=" " alt="" coords="563,163,669,189"/>
+</map>

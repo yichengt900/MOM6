@@ -1,0 +1,5 @@
+<map id="dome2d_initialization::dome2d_initialize_temperature_salinity" name="dome2d_initialization::dome2d_initialize_temperature_salinity">
+<area shape="rect" id="node1" title="Initialize temperature and salinity in the 2d DOME configuration." alt="" coords="6,5,181,61"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="230,13,354,54"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="403,13,527,54"/>
+</map>

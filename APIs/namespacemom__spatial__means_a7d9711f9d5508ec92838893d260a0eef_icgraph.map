@@ -1,0 +1,4 @@
+<map id="mom_spatial_means::adjust_area_mean_to_zero" name="mom_spatial_means::adjust_area_mean_to_zero">
+<area shape="rect" id="node1" title="Adjust 2d array such that area mean is zero without moving the zero contour." alt="" coords="185,5,338,46"/>
+<area shape="rect" id="node2" href="$namespacemom__surface__forcing.html#abca0c231a823abb684ce9f7d74f5f965" title=" " alt="" coords="5,5,136,46"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="supercritical_initialization::supercritical_set_obc_data" name="supercritical_initialization::supercritical_set_obc_data">
+<area shape="rect" id="node1" title="This subroutine sets the properties of flow at open boundary conditions." alt="" coords="480,5,635,46"/>
+<area shape="rect" id="node2" href="$namespacemom__state__initialization.html#af4e854627c6572332ba3fd895f169321" title=" " alt="" coords="297,5,431,46"/>
+<area shape="rect" id="node3" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,12,247,39"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,12,80,39"/>
+</map>

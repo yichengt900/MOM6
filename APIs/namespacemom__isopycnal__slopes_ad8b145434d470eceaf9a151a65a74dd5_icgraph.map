@@ -1,0 +1,4 @@
+<map id="mom_isopycnal_slopes::calc_isoneutral_slopes" name="mom_isopycnal_slopes::calc_isoneutral_slopes">
+<area shape="rect" id="node1" title=" " alt="" coords="171,13,306,54"/>
+<area shape="rect" id="node2" href="$namespacemom__lateral__mixing__coeffs.html#a8abf768b636e96aafa9544287624523e" title="Calculates and stores functions of isopycnal slopes, e.g. Sx, Sy, S*N, mostly used in the Visbeck et ..." alt="" coords="5,5,123,61"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="mom_open_boundary::setup_u_point_obc" name="mom_open_boundary::setup_u_point_obc">
+<area shape="rect" id="node1" title="Parse an OBC_SEGMENT_%%% string starting with &quot;I=&quot; and configure placement and type of OBC accordingl..." alt="" coords="5,15,139,57"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="545,103,669,145"/>
+<area shape="rect" id="node4" href="$namespacemom__open__boundary.html#ad40be6b6ce4c94040b7de59bde9be77f" title="Parse an OBC_SEGMENT_%%% string." alt="" coords="187,74,320,115"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="718,103,842,145"/>
+<area shape="rect" id="node5" href="$namespacemom__string__functions.html#aad76dee92b69dab4488da049fe11cdb8" title="Returns the string corresponding to the nth word in the argument or &quot;&quot; if the string is not long enou..." alt="" coords="369,45,495,86"/>
+<area shape="rect" id="node6" href="$MOM__open__boundary_8F90.html#a0793b1a5746e6ead6bff50c3a52cae90" title=" " alt="" coords="379,111,485,137"/>
+</map>

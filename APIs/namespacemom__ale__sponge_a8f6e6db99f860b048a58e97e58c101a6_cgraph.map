@@ -1,0 +1,30 @@
+<map id="mom_ale_sponge::apply_ale_sponge" name="mom_ale_sponge::apply_ale_sponge">
+<area shape="rect" id="node1" title="This subroutine applies damping to the layers thicknesses, temp, salt and a variety of tracers for ev..." alt="" coords="5,891,144,933"/>
+<area shape="rect" id="node2" href="$namespacemom__remapping.html#a6d1533ffa647f3305aba055e2685b095" title="Remaps column of values u0 on grid h0 to grid h1 assuming the top edge is aligned." alt="" coords="192,891,352,933"/>
+<area shape="rect" id="node3" href="$namespacemom__remapping.html#a07d7276310f329f56560a1290bcb8b0a" title="Creates polynomial reconstructions of u0 on the source grid h0." alt="" coords="405,409,536,450"/>
+<area shape="rect" id="node24" href="$namespacemom__remapping.html#a62666b08a892ba9e9ab5a4731a07b942" title="Checks that edge values and reconstructions satisfy bounds." alt="" coords="403,851,539,893"/>
+<area shape="rect" id="node25" href="$namespacemom__remapping.html#aac27eb299cd36293b458a51b60ac771f" title="Remaps column of n0 values u0 on grid h0 to grid h1 with n1 cells by calculating the n0+n1+1 sub&#45;inte..." alt="" coords="401,931,541,973"/>
+<area shape="rect" id="node27" href="$namespacemom__remapping.html#afe0efe65edb680f96fc5efe3d29a9217" title="Measure totals and bounds on source grid." alt="" coords="593,990,743,1031"/>
+<area shape="rect" id="node28" href="$namespacemom__remapping.html#a5453aeefe69feaff159b67f3a4bd2366" title="Measure totals and bounds on destination grid." alt="" coords="593,1055,743,1097"/>
+<area shape="rect" id="node14" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="993,805,1117,846"/>
+<area shape="rect" id="node4" href="$namespacepcm__functions.html#a273c33619766b17e1bea2f9bbc1d5e1b" title=" " alt="" coords="610,474,726,515"/>
+<area shape="rect" id="node5" href="$namespaceplm__functions.html#abf6acfcb1bef51f0c1f8682de53782c4" title=" " alt="" coords="613,539,723,581"/>
+<area shape="rect" id="node6" href="$namespaceplm__functions.html#a66dd52e70d72fb5830f9c4fb16efb2e8" title=" " alt="" coords="598,605,738,646"/>
+<area shape="rect" id="node7" href="$namespaceppm__functions.html#a97e2144c7499aacd90858788f1312432" title="Builds quadratic polynomials coefficients from cell mean and edge values." alt="" coords="609,17,727,58"/>
+<area shape="rect" id="node11" href="$namespaceppm__functions.html#aaf88d77ece3a30843c730fd2d57c517f" title=" " alt="" coords="598,670,738,711"/>
+<area shape="rect" id="node12" href="$namespaceregrid__edge__values.html#a2c2460b31b6de501eed3cb7db07a4be5" title=" " alt="" coords="597,278,739,319"/>
+<area shape="rect" id="node18" href="$namespaceregrid__edge__slopes.html#a378dcb603968664e58d65e8ed892ec69" title=" " alt="" coords="597,409,739,450"/>
+<area shape="rect" id="node19" href="$namespacepqm__functions.html#ada7e1a8d9d70b5b78b5e2dfddb5ffa43" title=" " alt="" coords="609,82,727,123"/>
+<area shape="rect" id="node21" href="$namespacepqm__functions.html#ae2c3bd1b82cddbe1bbb0e93e83d93e48" title=" " alt="" coords="589,213,747,254"/>
+<area shape="rect" id="node22" href="$namespaceregrid__edge__values.html#a6c14843c556353d86f2efb4c7c74c9f5" title=" " alt="" coords="597,343,739,385"/>
+<area shape="rect" id="node23" href="$namespaceregrid__edge__slopes.html#a32fc906bf14cfb859703b4a1a7c46a9c" title=" " alt="" coords="597,147,739,189"/>
+<area shape="rect" id="node8" href="$namespaceppm__functions.html#a89920c90b84f0b241c5a6d65fe2870b9" title="Adjusts edge values using the standard PPM limiter (Colella &amp; Woodward, JCP 1984) after first checkin..." alt="" coords="810,17,929,58"/>
+<area shape="rect" id="node9" href="$namespaceregrid__edge__values.html#aa204fe78ee22cae62f2b7f1bc76151a9" title=" " alt="" coords="993,86,1117,127"/>
+<area shape="rect" id="node10" href="$namespaceregrid__edge__values.html#acbdacbbf7212e538bb52a9729fc949a7" title=" " alt="" coords="992,5,1117,61"/>
+<area shape="rect" id="node13" href="$namespaceregrid__solvers.html#a8130a338b59de62b00f68da4204568ad" title=" " alt="" coords="810,278,929,319"/>
+<area shape="rect" id="node16" href="$namespacepolynomial__functions.html#aed77465c5ca9937dab06fdb5f94eba39" title=" " alt="" coords="803,409,935,450"/>
+<area shape="rect" id="node17" href="$namespaceregrid__solvers.html#a0d5c3cff8f31429b0a2c6d267e8b345d" title=" " alt="" coords="810,343,929,385"/>
+<area shape="rect" id="node15" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="1166,805,1290,846"/>
+<area shape="rect" id="node20" href="$namespacepqm__functions.html#a0ce0d64922453de1312adec7b8746544" title=" " alt="" coords="810,82,929,123"/>
+<area shape="rect" id="node26" href="$namespacemom__remapping.html#ac97371127053406c84be732a19eb6f9d" title="Returns the average value of a reconstruction within a single source cell, i0, between the non&#45;dimens..." alt="" coords="795,939,943,981"/>
+</map>

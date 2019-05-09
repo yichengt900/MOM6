@@ -1,0 +1,6 @@
+<map id="mom_io::modify_vardesc" name="mom_io::modify_vardesc">
+<area shape="rect" id="node1" title="This routine modifies the named elements of a vardesc type. All arguments are optional,..." alt="" coords="6,12,146,39"/>
+<area shape="rect" id="node2" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="195,12,341,39"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="390,5,514,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="563,5,687,46"/>
+</map>

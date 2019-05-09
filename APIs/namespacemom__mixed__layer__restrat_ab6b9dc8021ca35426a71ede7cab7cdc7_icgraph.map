@@ -1,0 +1,6 @@
+<map id="mom_mixed_layer_restrat::mixedlayer_restrat_init" name="mom_mixed_layer_restrat::mixedlayer_restrat_init">
+<area shape="rect" id="node1" title="Initialize the mixedlayer restratification module." alt="" coords="504,13,651,54"/>
+<area shape="rect" id="node2" href="$namespacemom__mixed__layer__restrat.html#aea597553dfa98cc7c972784f476ad3fc" title="Allocate and regsiter fields in the mixedlayer restratification structure for restarts." alt="" coords="297,5,455,61"/>
+<area shape="rect" id="node3" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,20,247,47"/>
+<area shape="rect" id="node4" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,20,80,47"/>
+</map>

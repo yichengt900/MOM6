@@ -1,0 +1,4 @@
+<map id="mom_boundary_update::update_obc_data" name="mom_boundary_update::update_obc_data">
+<area shape="rect" id="node1" title="Calls appropriate routine to update the open boundary conditions." alt="" coords="5,5,141,46"/>
+<area shape="rect" id="node2" href="$namespacetidal__bay__initialization.html#a6626f241b69cf1d39b0cdf9a30f03032" title="This subroutine sets the properties of flow at open boundary conditions." alt="" coords="190,5,330,46"/>
+</map>

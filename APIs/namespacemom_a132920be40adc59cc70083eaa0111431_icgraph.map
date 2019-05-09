@@ -1,0 +1,6 @@
+<map id="mom::calculate_surface_state" name="mom::calculate_surface_state">
+<area shape="rect" id="node1" title="This subroutine sets the surface (return) properties of the ocean model by setting the appropriate po..." alt="" coords="326,25,461,66"/>
+<area shape="rect" id="node2" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,32,80,59"/>
+<area shape="rect" id="node3" href="$namespaceocean__model__mod.html#a2fca652469ca65c63305060534a14c0e" title=" " alt="" coords="129,25,277,66"/>
+<area shape="rect" id="node4" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="151,91,254,118"/>
+</map>

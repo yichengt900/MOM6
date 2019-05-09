@@ -1,0 +1,5 @@
+<map id="mom::post_diags_ts_vardec" name="mom::post_diags_ts_vardec">
+<area shape="rect" id="node1" title="Calculate and post variance decay diagnostics for temp/salt." alt="" coords="280,5,397,46"/>
+<area shape="rect" id="node2" href="$namespacemom.html#a4c8332b095c6d295084089aa6b3b678a" title="This subroutine orchestrates the time stepping of MOM. The adiabatic dynamics are stepped by calls to..." alt="" coords="129,12,231,39"/>
+<area shape="rect" id="node3" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,12,80,39"/>
+</map>

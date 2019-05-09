@@ -1,0 +1,12 @@
+<map id="mom_grid_initialize::dy_dj" name="mom_grid_initialize::dy_dj">
+<area shape="rect" id="node1" title=" " alt="" coords="1003,57,1115,98"/>
+<area shape="rect" id="node2" href="$namespacemom__grid__initialize.html#aaa3a376606d5067107c3a43beb6f8032" title=" " alt="" coords="843,27,955,69"/>
+<area shape="rect" id="node3" href="$namespacemom__grid__initialize.html#ac37d98379b33a9e95d0bbffc1d7a730f" title=" " alt="" coords="640,57,795,98"/>
+<area shape="rect" id="node4" href="$namespacemom__grid__initialize.html#a235a9712823e2f78e4958e8d681b6ba4" title="set_grid_metrics is used to set the primary values in the model&#39;s horizontal grid...." alt="" coords="480,57,592,98"/>
+<area shape="rect" id="node5" href="$MOM__sum__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="327,5,401,32"/>
+<area shape="rect" id="node6" href="$namespacemom__ice__shelf.html#ae315e8464ef8a20062e3bccb61886755" title=" " alt="" coords="297,57,431,98"/>
+<area shape="rect" id="node9" href="$namespacemom__fixed__initialization.html#a6c1c054d9cda9f1bd11abba748614c92" title="MOM_initialize_fixed sets up time&#45;invariant quantities related to MOM6&#39;s horizontal grid,..." alt="" coords="297,122,431,163"/>
+<area shape="rect" id="node7" href="$ice__shelf__driver_8F90.html#aec5bef92f0dad343f545cd8d62e378d8" title=" " alt="" coords="151,28,225,55"/>
+<area shape="rect" id="node8" href="$MOM__driver_8F90.html#a08fffeb2d8e8acbf9ed4609be6d258c6" title=" " alt="" coords="5,104,80,131"/>
+<area shape="rect" id="node10" href="$namespacemom.html#a0be2869fef30e1e0604facfe1b41555d" title="This subroutine initializes MOM." alt="" coords="129,129,247,156"/>
+</map>

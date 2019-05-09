@@ -1,0 +1,5 @@
+<map id="mom_shared_initialization::compute_global_grid_integrals" name="mom_shared_initialization::compute_global_grid_integrals">
+<area shape="rect" id="node1" title="Pre&#45;compute global integrals of grid quantities (like masked ocean area) for later use in reporting d..." alt="" coords="5,5,179,46"/>
+<area shape="rect" id="node2" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="227,5,351,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="401,5,525,46"/>
+</map>

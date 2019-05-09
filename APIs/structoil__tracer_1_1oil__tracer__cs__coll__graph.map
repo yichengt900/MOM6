@@ -1,0 +1,13 @@
+<map id="oil_tracer::oil_tracer_cs" name="oil_tracer::oil_tracer_cs">
+<area shape="rect" id="node1" title=" " alt="" coords="358,263,490,289"/>
+<area shape="rect" id="node2" title=" " alt="" coords="143,37,193,64"/>
+<area shape="rect" id="node3" title=" " alt="" coords="134,88,202,115"/>
+<area shape="rect" id="node4" title=" " alt="" coords="109,139,227,165"/>
+<area shape="rect" id="node5" title=" " alt="" coords="111,189,225,216"/>
+<area shape="rect" id="node6" title=" " alt="" coords="139,240,197,267"/>
+<area shape="rect" id="node7" title=" " alt="" coords="105,291,231,333"/>
+<area shape="rect" id="node8" href="$structoil__tracer_1_1p3d.html" title=" " alt="" coords="123,357,213,384"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5,496,45,523"/>
+<area shape="rect" id="node10" title=" " alt="" coords="137,617,199,644"/>
+<area shape="rect" id="node11" title=" " alt="" coords="141,796,195,823"/>
+</map>

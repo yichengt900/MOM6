@@ -1,0 +1,7 @@
+<map id="mom_diag_mediator::set_axes_info" name="mom_diag_mediator::set_axes_info">
+<area shape="rect" id="node1" title="Sets up diagnostics axes." alt="" coords="6,27,133,69"/>
+<area shape="rect" id="node2" href="$namespacemom__diag__mediator.html#ab9f767ec24a860cb71cae264560272a8" title="Defines a group of &quot;axes&quot; from list of handles." alt="" coords="182,27,309,69"/>
+<area shape="rect" id="node3" href="$namespacemom__diag__mediator.html#a82d9bb70db16b1113304936c82d40e82" title=" " alt="" coords="357,5,496,32"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="365,57,489,98"/>
+<area shape="rect" id="node5" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="545,57,669,98"/>
+</map>

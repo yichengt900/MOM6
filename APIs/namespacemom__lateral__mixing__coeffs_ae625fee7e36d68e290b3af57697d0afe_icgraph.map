@@ -1,0 +1,4 @@
+<map id="mom_lateral_mixing_coeffs::calc_visbeck_coeffs" name="mom_lateral_mixing_coeffs::calc_visbeck_coeffs">
+<area shape="rect" id="node1" title="Calculates factors used when setting diffusivity coefficients similar to Visbeck et al." alt="" coords="171,5,291,61"/>
+<area shape="rect" id="node2" href="$namespacemom__lateral__mixing__coeffs.html#a8abf768b636e96aafa9544287624523e" title="Calculates and stores functions of isopycnal slopes, e.g. Sx, Sy, S*N, mostly used in the Visbeck et ..." alt="" coords="5,5,123,61"/>
+</map>

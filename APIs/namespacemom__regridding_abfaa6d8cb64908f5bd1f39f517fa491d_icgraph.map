@@ -1,0 +1,4 @@
+<map id="mom_regridding::getcoordinateinterfaces" name="mom_regridding::getcoordinateinterfaces">
+<area shape="rect" id="node1" title="Query the target coordinate interface positions." alt="" coords="193,12,410,39"/>
+<area shape="rect" id="node2" href="$namespacemom__diag__remap.html#ac557898257c62be5c83415bfb60797bd" title="Configure the vertical axes for a diagnostic remapping control structure. Reads a configuration param..." alt="" coords="6,5,143,46"/>
+</map>

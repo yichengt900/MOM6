@@ -1,0 +1,5 @@
+<map id="mom_wave_speed::tridiag_det" name="mom_wave_speed::tridiag_det">
+<area shape="rect" id="node1" title="Calculate the determinant of a tridiagonal matrix with diagonals a,b&#45;lam,c where lam is constant acro..." alt="" coords="368,12,536,39"/>
+<area shape="rect" id="node2" href="$namespacemom__wave__speed.html#a0009abd8573168b780c95db2962982d6" title="Calculates the wave speeds for the first few barolinic modes." alt="" coords="177,5,319,46"/>
+<area shape="rect" id="node3" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="6,5,127,46"/>
+</map>

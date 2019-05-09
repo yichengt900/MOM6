@@ -1,0 +1,5 @@
+<map id="mom_diapyc_energy_req::diapyc_energy_req_calc" name="mom_diapyc_energy_req::diapyc_energy_req_calc">
+<area shape="rect" id="node1" title=" " alt="" coords="369,5,511,46"/>
+<area shape="rect" id="node2" href="$namespacemom__diapyc__energy__req.html#afe7d4fc70231c1812ffd38faef76558e" title=" " alt="" coords="177,5,319,46"/>
+<area shape="rect" id="node3" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="6,5,127,46"/>
+</map>

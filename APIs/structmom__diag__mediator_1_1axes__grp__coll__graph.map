@@ -1,0 +1,15 @@
+<map id="mom_diag_mediator::axes_grp" name="mom_diag_mediator::axes_grp">
+<area shape="rect" id="node1" title="A group of 1D axes that comprise a 1D/2D/3D mesh." alt="" coords="254,222,381,263"/>
+<area shape="rect" id="node4" href="$structmom__diag__mediator_1_1diag__type.html" title="This type is used to represent a diagnostic at the diag_mediator level. There can be both &#39;primary&#39; a..." alt="" coords="518,381,645,422"/>
+<area shape="rect" id="node3" href="$structmom__diag__mediator_1_1diag__ctrl.html" title="The following data type a list of diagnostic fields an their variants, as well as variables that cont..." alt="" coords="774,618,901,659"/>
+<area shape="rect" id="node2" title=" " alt="" coords="33,291,84,317"/>
+<area shape="rect" id="node5" title=" " alt="" coords="274,419,361,445"/>
+<area shape="rect" id="node6" title=" " alt="" coords="297,573,337,600"/>
+<area shape="rect" id="node7" title=" " alt="" coords="31,491,86,517"/>
+<area shape="rect" id="node8" title=" " alt="" coords="547,707,615,733"/>
+<area shape="rect" id="node9" title=" " alt="" coords="515,757,647,784"/>
+<area shape="rect" id="node10" title=" " alt="" coords="532,808,631,835"/>
+<area shape="rect" id="node11" title=" " alt="" coords="531,859,632,885"/>
+<area shape="rect" id="node12" title=" " alt="" coords="8,84,109,111"/>
+<area shape="rect" id="node13" title=" " alt="" coords="5,9,112,36"/>
+</map>

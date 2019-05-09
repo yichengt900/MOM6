@@ -1,0 +1,4 @@
+<map id="mom_vert_friction::find_coupling_coef" name="mom_vert_friction::find_coupling_coef">
+<area shape="rect" id="node1" title="Calculate the &#39;coupling coefficient&#39; (a[k]) at the interfaces. If BOTTOMDRAGLAW is defined,..." alt="" coords="169,5,282,46"/>
+<area shape="rect" id="node2" href="$namespacemom__vert__friction.html#af2cc04944a1f4baa00c574d9ec082eeb" title="Calculate the coupling coefficients (CSa_u and CSa_v) and effective layer thicknesses (CSh_u and CSh_..." alt="" coords="6,5,119,46"/>
+</map>

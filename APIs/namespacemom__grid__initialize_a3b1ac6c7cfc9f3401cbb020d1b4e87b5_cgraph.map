@@ -1,0 +1,7 @@
+<map id="mom_grid_initialize::initialize_masks" name="mom_grid_initialize::initialize_masks">
+<area shape="rect" id="node1" title="initialize_masks initializes the grid masks and any metrics that come with masks already applied." alt="" coords="5,70,117,111"/>
+<area shape="rect" id="node2" href="$namespacemom__grid__initialize.html#ac5445d58b86d259f4c352255849d7fe0" title="This function implements Adcroft&#39;s rule for reciprocals, namely that Adcroft_Inv(x) = 1/x for |x|&gt;0 o..." alt="" coords="171,5,285,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a9cda07a87815f0e5594066162b4345c3" title="Writes a message about entering a subroutine if call tree reporting is active." alt="" coords="166,70,290,111"/>
+<area shape="rect" id="node5" href="$namespacemom__error__handler.html#a88ea67781e2ed9b73ab7eac8ea5e8578" title="Writes a message about leaving a subroutine if call tree reporting is active." alt="" coords="166,135,290,177"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="339,103,463,145"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="mom_obsolete_diagnostics::register_obsolete_diagnostics" name="mom_obsolete_diagnostics::register_obsolete_diagnostics">
+<area shape="rect" id="node1" title="Scan through the diag_table searching for obsolete parameters and issue informational messages and op..." alt="" coords="5,63,173,105"/>
+<area shape="rect" id="node2" href="$namespacemom__obsolete__diagnostics.html#a137ff7cb882b715d0ccf915fef52386c" title="Fakes a register of a diagnostic to find out if an obsolete parameter appears in the diag_table." alt="" coords="222,5,373,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="595,59,719,101"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="422,59,546,101"/>
+</map>

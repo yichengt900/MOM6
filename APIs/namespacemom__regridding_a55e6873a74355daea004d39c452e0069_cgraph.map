@@ -1,0 +1,8 @@
+<map id="mom_regridding::build_zstar_grid" name="mom_regridding::build_zstar_grid">
+<area shape="rect" id="node1" title="Builds a z*&#45;ccordinate grid with partial steps (Adcroft and Campin, 2004). z* is defined as z* = (z&#45;e..." alt="" coords="5,103,133,145"/>
+<area shape="rect" id="node2" href="$namespacemom__regridding.html#ab18f7ea3cfa3c3892cb69086e3a4baef" title="Adjust dz_Interface to ensure non&#45;negative future thicknesses." alt="" coords="183,5,318,46"/>
+<area shape="rect" id="node5" href="$namespacemom__regridding.html#a1fe77f09d8e5ea5eae1a0cff087d5464" title="Builds a z* coordinate with a minimum thickness." alt="" coords="187,70,315,111"/>
+<area shape="rect" id="node6" href="$namespacemom__regridding.html#a9dddf53999f90d1a4edc79179c5b5da4" title="Returns the change in interface position motion after filtering and assuming the top and bottom inter..." alt="" coords="181,135,320,177"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="369,135,493,177"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="542,135,666,177"/>
+</map>

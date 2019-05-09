@@ -1,0 +1,11 @@
+<map id="mom_diag_remap::diag_remap_ctrl" name="mom_diag_remap::diag_remap_ctrl">
+<area shape="rect" id="node1" title="This type represents remapping of diagnostics to a particular vertical coordinate...." alt="" coords="273,195,407,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="9,5,116,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="37,77,88,104"/>
+<area shape="rect" id="node4" title=" " alt="" coords="18,128,107,155"/>
+<area shape="rect" id="node5" title=" " alt="" coords="9,179,116,205"/>
+<area shape="rect" id="node6" title=" " alt="" coords="12,229,113,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,280,120,307"/>
+<area shape="rect" id="node8" title=" " alt="" coords="43,332,83,359"/>
+<area shape="rect" id="node9" title=" " alt="" coords="35,421,90,448"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="boundary_impulse_tracer::register_boundary_impulse_tracer" name="boundary_impulse_tracer::register_boundary_impulse_tracer">
+<area shape="rect" id="node1" title="Read in runtime options and add boundary impulse tracer to tracer registry." alt="" coords="5,81,163,137"/>
+<area shape="rect" id="node2" href="$namespaceatmos__ocean__fluxes__mod.html#a413981652ffe0bccccdf5ff5c4c1d526" title=" " alt="" coords="211,5,365,46"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="798,89,922,130"/>
+<area shape="rect" id="node5" href="$namespacemom__io.html#a23e82d1d89d9bb1c9bdf802ce80d4508" title="This routine queries vardesc." alt="" coords="416,121,552,148"/>
+<area shape="rect" id="node7" href="$namespacemom__io.html#a39c3ccc06bb1a6e446af2ee9010eba16" title="Returns a vardesc type whose elements have been filled with the provided fields. The argument name is..." alt="" coords="233,172,343,199"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="971,89,1095,130"/>
+<area shape="rect" id="node6" href="$namespacemom__io.html#ac4bc408e8b38dbd669842753f26ebf88" title="Copies a string." alt="" coords="603,147,749,173"/>
+<area shape="rect" id="node8" href="$namespacemom__io.html#af96b29cb8410d557e8e452b81586223b" title="This routine modifies the named elements of a vardesc type. All arguments are optional,..." alt="" coords="414,223,554,249"/>
+</map>

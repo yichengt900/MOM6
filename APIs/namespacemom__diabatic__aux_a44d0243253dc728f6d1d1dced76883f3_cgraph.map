@@ -1,0 +1,10 @@
+<map id="mom_diabatic_aux::applyboundaryfluxesinout" name="mom_diabatic_aux::applyboundaryfluxesinout">
+<area shape="rect" id="node1" title="Update the thickness, temperature, and salinity due to thermodynamic boundary forcing (contained in f..." alt="" coords="5,107,243,133"/>
+<area shape="rect" id="node2" href="$namespacemom__shortwave__abs.html#a977474b56b68f4db0d6b0dc604755e6c" title="Apply shortwave heating below surface boundary layer." alt="" coords="319,5,449,46"/>
+<area shape="rect" id="node3" href="$namespacemom__eos.html#ab6ed65d2df376be9bbea2050f50fe46e" title="Calls the appropriate subroutine to calculate specific volume derivatives for an array." alt="" coords="326,70,442,111"/>
+<area shape="rect" id="node6" href="$namespacemom__forcing__type.html#ab67e7c2e99099bcf22d12885f349e1e4" title="This subroutine extracts fluxes from the surface fluxes type. It works on a j&#45;row for optimization pu..." alt="" coords="291,136,477,163"/>
+<area shape="rect" id="node7" href="$namespacemom__forcing__type.html#a1048a8e80ebd47f83b91772c02aedba2" title="Write out values of the fluxes arrays at the i,j location. This is a debugging tool." alt="" coords="310,187,458,229"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="526,99,650,141"/>
+<area shape="rect" id="node5" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="699,99,823,141"/>
+<area shape="rect" id="node8" href="$MOM__forcing__type_8F90.html#a17e3300314324a127a3ae8c284cf4195" title="Format and write a message depending on associated state of array." alt="" coords="561,195,615,221"/>
+</map>

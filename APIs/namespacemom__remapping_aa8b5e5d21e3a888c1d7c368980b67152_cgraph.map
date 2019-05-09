@@ -1,0 +1,6 @@
+<map id="mom_remapping::remapbyprojection" name="mom_remapping::remapbyprojection">
+<area shape="rect" id="node1" title="Remaps column of values u0 on grid h0 to grid h1 by integrating over the projection of each h1 cell o..." alt="" coords="5,12,203,39"/>
+<area shape="rect" id="node2" href="$namespacemom__remapping.html#a70384d9f71e63af37657193da4664a46" title="Integrate the reconstructed column profile over a single cell." alt="" coords="251,12,475,39"/>
+<area shape="rect" id="node3" href="$namespacemom__error__handler.html#a460cfb79a06c29fc249952c2a3710d67" title=" " alt="" coords="523,5,647,46"/>
+<area shape="rect" id="node4" href="$namespacemom__error__handler.html#ad5f00a53059c72fe2332d1436c80ca71" title=" " alt="" coords="697,5,821,46"/>
+</map>

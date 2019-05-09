@@ -1,0 +1,6 @@
+<map id="mom_surface_forcing::ice_ocean_boundary_type" name="mom_surface_forcing::ice_ocean_boundary_type">
+<area shape="rect" id="node1" title=" " alt="" coords="98,350,251,391"/>
+<area shape="rect" id="node2" href="$structcoupler__types__mod_1_1coupler__2d__bc__type.html" title=" " alt="" coords="5,97,125,138"/>
+<area shape="rect" id="node3" title=" " alt="" coords="103,5,157,32"/>
+<area shape="rect" id="node4" title=" " alt="" coords="267,104,307,131"/>
+</map>

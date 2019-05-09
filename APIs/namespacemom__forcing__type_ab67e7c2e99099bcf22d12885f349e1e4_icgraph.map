@@ -1,0 +1,9 @@
+<map id="mom_forcing_type::extractfluxes1d" name="mom_forcing_type::extractfluxes1d">
+<area shape="rect" id="node1" title="This subroutine extracts fluxes from the surface fluxes type. It works on a j&#45;row for optimization pu..." alt="" coords="741,89,928,116"/>
+<area shape="rect" id="node2" href="$namespacemom__diabatic__aux.html#a44d0243253dc728f6d1d1dced76883f3" title="Update the thickness, temperature, and salinity due to thermodynamic boundary forcing (contained in f..." alt="" coords="176,5,413,32"/>
+<area shape="rect" id="node4" href="$namespacemom__bulk__mixed__layer.html#a9c3a37aae75b52453efad11d8c8abbe6" title=" " alt="" coords="227,57,362,98"/>
+<area shape="rect" id="node5" href="$namespacemom__forcing__type.html#a2bb917f3d8bcdcf4f5bf49c435992640" title="This routine calculates surface buoyancy flux by adding up the heat, FW &amp; salt fluxes...." alt="" coords="462,115,693,141"/>
+<area shape="rect" id="node7" href="$namespacemom__forcing__type.html#a6f249aced2e22622e4c2913b4c86b43f" title="2d wrapper for 1d extract fluxes from surface fluxes type. This subroutine extracts fluxes from the s..." alt="" coords="484,165,671,192"/>
+<area shape="rect" id="node3" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="6,57,127,98"/>
+<area shape="rect" id="node6" href="$namespacemom__forcing__type.html#ada776515b52ca3fa34901572cfef5858" title="Calculates surface buoyancy flux by adding up the heat, FW and salt fluxes, for 2d arrays...." alt="" coords="179,123,410,149"/>
+</map>

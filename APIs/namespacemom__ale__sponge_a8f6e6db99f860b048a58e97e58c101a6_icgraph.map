@@ -1,0 +1,4 @@
+<map id="mom_ale_sponge::apply_ale_sponge" name="mom_ale_sponge::apply_ale_sponge">
+<area shape="rect" id="node1" title="This subroutine applies damping to the layers thicknesses, temp, salt and a variety of tracers for ev..." alt="" coords="176,5,315,46"/>
+<area shape="rect" id="node2" href="$namespacemom__diabatic__driver.html#a61e57d3902367aa46aa3c2d949ee900f" title="This subroutine imposes the diapycnal mass fluxes and the accompanying diapycnal advection of momentu..." alt="" coords="6,5,127,46"/>
+</map>
