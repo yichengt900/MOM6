@@ -16,6 +16,8 @@ implicit none ; private
 
 ! Private (module-wise) parameters
 character(len=40) :: mdl = "baroclinic_zone_initialization" !< This module's name.
+integer :: LINEAR = 1
+integer :: NATLOG = 2
 
 public baroclinic_zone_init_temperature_salinity
 
@@ -28,7 +30,7 @@ contains
 
 !> Reads the parameters unique to this module
 subroutine bcz_params(G, GV, US, param_file, S_ref, dSdz, delta_S, dSdx, T_ref, dTdz, &
-                      delta_T, dTdx, L_zone, just_read_params)
+                      delta_T, dTdx, L_zone, strat_type, just_read_params)
   type(ocean_grid_type),   intent(in)  :: G          !< Grid structure
   type(verticalGrid_type), intent(in)  :: GV         !< The ocean's vertical grid structure.
   type(unit_scale_type),   intent(in)  :: US    !< A dimensional unit scaling type
@@ -42,20 +44,41 @@ subroutine bcz_params(G, GV, US, param_file, S_ref, dSdz, delta_S, dSdx, T_ref, 
   real,                    intent(out) :: delta_T    !< Temperature difference across baroclinic zone [degC]
   real,                    intent(out) :: dTdx       !< Linear temperature gradient in [degC G%x_axis_units-1]
   real,                    intent(out) :: L_zone     !< Width of baroclinic zone in [G%x_axis_units]
+  integer,                 intent(out) :: strat_type !< Functional form of the stratification. 1: linear 2: logarithmic
   logical,       optional, intent(in)  :: just_read_params !< If present and true, this call will
                                                      !! only read parameters without changing h.
 
   logical :: just_read    ! If true, just read parameters but set nothing.
+  character(len=40) :: strat_func ! Determine the function describing the stratification
 
   just_read = .false. ; if (present(just_read_params)) just_read = just_read_params
 
   if (.not.just_read) &
     call log_version(param_file, mdl, version, 'Initialization of an analytic baroclinic zone')
   call openParameterBlock(param_file,'BCZIC')
+  call get_param(param_file, mdl, "STRAT_FUNC", strat_func,
+                 "Determines the analytic function describing "//&
+                 "the vertical profile of T, S:\n"//&
+                 " LINEAR   - Linear profile \n"//&
+                 " NATLOG   - Natural logarithm \n"//&
+                 default="LINEAR"., do_not_log=just_read)
+  if (strat_func == "LINEAR") then
+    strat_func = LINEAR
+  elseif (strat_func == "NATLOG")
+    strat_func = NATLOG
+  else
+    call MOM_error("Unknown functional form for the vertical profile of T/S called")
+  endif
+
   call get_param(param_file, mdl, "S_REF", S_ref, 'Reference salinity', units='ppt', &
                  default=35., do_not_log=just_read)
-  call get_param(param_file, mdl, "DSDZ", dSdz, 'Salinity stratification', &
-                 units='ppt/m', default=0.0, scale=US%Z_to_m, do_not_log=just_read)
+  if (strat_func == LINEAR) then
+    call get_param(param_file, mdl, "DSDZ", dSdz, 'Salinity stratification', &
+                   units='ppt/m', default=0.0, scale=US%Z_to_m, do_not_log=just_read)
+  else
+    call get_param(param_file, mdl, "DSDZ", dSdz, 'Salinity difference from the top layer to bottom', &
+                   units='ppt', default=0.1, do_not_log=just_read)
+  endif
   call get_param(param_file, mdl,"DELTA_S",delta_S,'Salinity difference across baroclinic zone', &
                  units='ppt', default=0.0, do_not_log=just_read)
   call get_param(param_file, mdl,"DSDX",dSdx,'Meridional salinity difference', &
@@ -64,12 +87,20 @@ subroutine bcz_params(G, GV, US, param_file, S_ref, dSdz, delta_S, dSdx, T_ref, 
                  default=10., do_not_log=just_read)
   call get_param(param_file, mdl, "DTDZ", dTdz, 'Temperature stratification', &
                  units='C/m', default=0.0, scale=US%Z_to_m, do_not_log=just_read)
+  if (strat_func == LINEAR) then
+    call get_param(param_file, mdl, "DTDZ", dTdz, 'Temperature stratification', &
+                   units='C/m', default=0.0, scale=US%Z_to_m, do_not_log=just_read)
+  else
+    call get_param(param_file, mdl, "DTDZ", dTdz, 'Temperature difference from the top layer to bottom', &
+                   units='C', default=5, do_not_log=just_read)
+  endif
   call get_param(param_file, mdl,"DELTA_T",delta_T,'Temperature difference across baroclinic zone', &
                  units='C', default=0.0, do_not_log=just_read)
   call get_param(param_file, mdl,"DTDX",dTdx,'Meridional temperature difference', &
                  units='C/'//trim(G%x_axis_units), default=0.0, do_not_log=just_read)
   call get_param(param_file, mdl,"L_ZONE",L_zone,'Width of baroclinic zone', &
                  units=G%x_axis_units, default=0.5*G%len_lat, do_not_log=just_read)
+  call get_param(param_file, mdl,"STRAT_FUNC",
   call closeParameterBlock(param_file)
 
 end subroutine bcz_params
@@ -88,19 +119,21 @@ subroutine baroclinic_zone_init_temperature_salinity(T, S, h, G, GV, US, param_f
                                                       !! only read parameters without changing T & S.
 
   integer   :: i, j, k, is, ie, js, je, nz
+  integer   :: strat_type
   real      :: T_ref, dTdz, dTdx, delta_T ! Parameters describing temperature distribution
   real      :: S_ref, dSdz, dSdx, delta_S ! Parameters describing salinity distribution
   real      :: L_zone ! Width of baroclinic zone in [G%axis_units]
   real      :: zc, zi ! Depths in depth units [Z ~> m]
-  real      :: x, xd, xs, y, yd, fn
+  real      :: x, xd, xs, y, yd, fn, coef_S, coef_T, zrat
   real      :: PI                   ! 3.1415926... calculated as 4*atan(1)
+  real(dimension,SZK_(G))      :: zc, zi, delT_delz, delS_delz
   logical :: just_read    ! If true, just read parameters but set nothing.
 
   is = G%isc ; ie = G%iec ; js = G%jsc ; je = G%jec ; nz = G%ke
   just_read = .false. ; if (present(just_read_params)) just_read = just_read_params
 
   call bcz_params(G, GV, US, param_file, S_ref, dSdz, delta_S, dSdx, T_ref, dTdz, &
-                  delta_T, dTdx, L_zone, just_read_params)
+                  delta_T, dTdx, L_zone, strat_type, just_read_params)
 
   if (just_read) return ! All run-time parameters have been read, so return.
 
@@ -121,13 +154,36 @@ subroutine baroclinic_zone_init_temperature_salinity(T, S, h, G, GV, US, param_f
       xs = sign(1., x) ! +/- 1
       fn = xs
     endif
+
+    zi(nz) = -G%bathyT(i,j) + h(i,j,nz)
+    zc(nz) = -G%bathtT(i,j) + 0.5*h(i,j,nz)
+    do k = nz-1,1,-1
+      zc(k) = zi(k+1) + 0.5*h(i,j,k)*GV%H_to_Z ! Depth of center of cell (z increases upward)
+      zi(k) = zi(k+1) + h(i,j,k)*GV%H_to_Z     ! Top interface of cell
+    enddo
+    if (strat_type == LINEAR) then
+      do k = nz,1,-1
+        delT_delz(k) = dTdz*zc
+        delS_delz(k) = dSdz*zc
+      enddo
+    elseif (strat_type == NATLOG)
+      delT_delz(nz) = 0.
+      delS_delz(nz) = 0.
+      zrat = zc(1)/zc(nz)
+      coef_T = -dTdz/log(zrat)
+      coef_S = -dSdz/log(zrat)
+      do k = nz-1,1,-1
+        zrat = z(k)/z(k+1)
+        delT_delz(k) = A*log(zrat)
+        delT_delz(k) = A*log(zrat)
+      enddo
+    endif
+
     do k = nz, 1, -1
-      zc = zi + 0.5*h(i,j,k)*GV%H_to_Z ! Position of middle of cell
-      zi = zi + h(i,j,k)*GV%H_to_Z    ! Top interface position
-      T(i,j,k) = T_ref + dTdz * zc  & ! Linear temperature stratification
+      T(i,j,k) = T_ref + delT_delz  & ! Temperature stratification
                  + dTdx * x         & ! Linear gradient
                  + delta_T * fn       ! Smooth fn of width L_zone
-      S(i,j,k) = S_ref + dSdz * zc  & ! Linear temperature stratification
+      S(i,j,k) = S_ref + delS_delz  & ! Salinity stratification
                  + dSdx * x         & ! Linear gradient
                  + delta_S * fn       ! Smooth fn of width L_zone
     enddo
