@@ -28,6 +28,7 @@ use MOM_CVMix_KPP,             only : KPP_get_BLD, KPP_CS
 use MOM_energetic_PBL,         only : energetic_PBL_get_MLD, energetic_PBL_CS
 use MOM_diabatic_driver,       only : diabatic_CS, extract_diabatic_member
 use MOM_lateral_boundary_diffusion, only : boundary_k_range, SURFACE, BOTTOM
+use poly_roots,                only : rpoly
 
 use iso_fortran_env, only : stdout=>output_unit, stderr=>error_unit
 
@@ -92,7 +93,11 @@ type, public :: neutral_diffusion_CS ; private
                                              !! regulate the timing of diagnostic output.
   integer :: neutral_pos_method              !< Method to find the position of a neutral surface within the layer
   character(len=40)  :: delta_rho_form       !< Determine which (if any) approximation is made to the
-                                             !! equation describing the difference in density
+                                             !! equation describing the
+                                             !difference in density
+  
+  integer :: drho_degree = -1 !< Degree of the polynomial when T and S are multiplied by the equation of state
+                                  !! This applies only when the alpha and beta vary linearly 
 
   integer :: id_uhEff_2d = -1 !< Diagnostic IDs
   integer :: id_vhEff_2d = -1 !< Diagnostic IDs
@@ -126,6 +131,7 @@ logical function neutral_diffusion_init(Time, G, US, param_file, diag, EOS, diab
   ! Local variables
   character(len=256) :: mesg    ! Message for error messages.
   character(len=80)  :: string  ! Temporary strings
+  integer :: remap_degree
   logical :: default_2018_answers
   logical :: boundary_extrap
 
@@ -198,7 +204,9 @@ logical function neutral_diffusion_init(Time, G, US, param_file, diag, EOS, diab
     if (CS%neutral_pos_method > 4 .or. CS%neutral_pos_method < 0) then
       call MOM_error(FATAL,"Invalid option for NEUTRAL_POS_METHOD")
     endif
-
+    if (CS%neutral_pos_method == 2) then
+      CS%drho_degree = CS%deg + 1
+    endif
     call get_param(param_file, mdl, "DELTA_RHO_FORM", CS%delta_rho_form,           &
                    "Determine how the difference in density is calculated    \n"// &
                    "  full       : Difference of in-situ densities           \n"// &
@@ -1494,8 +1502,14 @@ real function search_other_column(CS, ksurf, pos_last, T_from, S_from, P_from, T
   ! For the 'Linear' case of finding the neutral position, the fromerence pressure to use is the average
   ! of the midpoint of the layer being searched and the interface being searched from
   elseif (CS%neutral_pos_method == 2) then
-    pos = find_neutral_pos_linear( CS, pos_last, T_from, S_from, dRdT_from, dRdS_from, &
-                                   dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, T_poly, S_poly )
+
+    if ( (CS%drho_degree == 2) .or. (CS%drho_degree == 3) ) then
+      pos = find_neutral_pos_linear_by_poly( CS, pos_last, T_from, S_from, dRdT_from, dRdS_from, &
+                                     dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, T_poly, S_poly )
+    else
+      pos = find_neutral_pos_linear( CS, pos_last, T_from, S_from, dRdT_from, dRdS_from, &
+                                     dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, T_poly, S_poly )
+    endif
   elseif (CS%neutral_pos_method == 3) then
     pos = find_neutral_pos_full( CS, pos_last, T_from, S_from, P_from, P_top, P_bot, T_poly, S_poly)
   endif
@@ -1528,6 +1542,87 @@ subroutine increment_interface(nk, kl, ki, reached_bottom, searching_this_column
     call MOM_error(FATAL,"Unanticipated eventuality in increment_interface")
   endif
 end subroutine increment_interface
+
+!> Similar to find_neutral_pos_linear, except that a root-finding algorithm is applied to the N+1 degree polynomial
+!! resulting from convolution of delta rho with the N-degree polynomial representations of T and S
+function find_neutral_pos_linear_by_poly( CS, z0, T_ref, S_ref, dRdT_ref, dRdS_ref, &
+                                  dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, ppoly_T, ppoly_S ) result( z )
+  type(neutral_diffusion_CS),intent(in) :: CS        !< Control structure with parameters for this module
+  real,                      intent(in) :: z0        !< Lower bound of position, also serves as the
+                                                     !! initial guess [nondim]
+  real,                      intent(in) :: T_ref     !< Temperature at the searched from interface [degC]
+  real,                      intent(in) :: S_ref     !< Salinity at the searched from interface [ppt]
+  real,                      intent(in) :: dRdT_ref  !< dRho/dT at the searched from interface
+                                                     !! [R degC-1 ~> kg m-3 degC-1]
+  real,                      intent(in) :: dRdS_ref  !< dRho/dS at the searched from interface
+                                                     !! [R ppt-1 ~> kg m-3 ppt-1]
+  real,                      intent(in) :: dRdT_top  !< dRho/dT at top of layer being searched
+                                                     !! [R degC-1 ~> kg m-3 degC-1]
+  real,                      intent(in) :: dRdS_top  !< dRho/dS at top of layer being searched
+                                                     !! [R ppt-1 ~> kg m-3 ppt-1]
+  real,                      intent(in) :: dRdT_bot  !< dRho/dT at bottom of layer being searched
+                                                     !! [R degC-1 ~> kg m-3 degC-1]
+  real,                      intent(in) :: dRdS_bot  !< dRho/dS at bottom of layer being searched
+                                                     !! [R ppt-1 ~> kg m-3 ppt-1]
+  real, dimension(:),        intent(in) :: ppoly_T   !< Coefficients of the polynomial reconstruction of T within
+                                                     !! the layer to be searched [degC].
+  real, dimension(:),        intent(in) :: ppoly_S   !< Coefficients of the polynomial reconstruction of S within
+                                                     !! the layer to be searched [ppt].
+  real                                  :: z         !< Position where drho = 0 [nondim]
+  ! Local variables
+  real(kind=8), dimension(CS%drho_degree+1) :: drho_poly, drho_poly_reversed
+  real(kind=8), dimension(CS%drho_degree)   :: root_real, root_imag
+  logical :: failed 
+  integer :: m, drho_degree, nonzero_idx
+
+  drho_poly(1) = 0.5*( (ppoly_T(1) - T_ref)*(dRdT_top + dRdT_ref) + (ppoly_S(1) - S_ref)*(dRdS_top + dRdS_ref) )
+
+  drho_poly(2) = 0.5*( (T_ref - ppoly_T(1))*(dRdT_top - dRdT_bot) + ppoly_T(2)*(dRdT_top + dRdT_ref) + &
+                       (S_ref - ppoly_S(1))*(dRdS_top - dRdS_bot) + ppoly_S(2)*(dRdS_top + dRdS_ref)   )
+                     
+                  
+  if (CS%drho_degree == 2) then
+    drho_poly(3) = 0.5*( ppoly_T(2)*(dRdT_bot - dRdT_top) + ppoly_S(2)*(dRdS_bot - dRdS_top) )
+  else if (CS%drho_degree == 3) then
+    drho_poly(3) = 0.5*( ppoly_T(3)*(dRdT_top+dRdT_ref) - ppoly_T(2)*(dRdT_bot - dRdT_top) + &
+                         ppoly_S(3)*(dRdS_top+dRdS_ref) - ppoly_S(2)*(dRdS_bot - dRdS_top)   )
+    drho_poly(4) = 0.5*( ppoly_T(3)*(dRdT_bot-dRdT_top) + ppoly_S(3)*(dRdS_bot-dRdS_top) )
+  else
+    call MOM_error(FATAL,"Combination of reconstruction and EOS approximation not supported")
+  endif
+  
+  drho_poly_reversed = drho_poly(CS%drho_degree+1:1:-1)
+  ! Reduce degree of polynomial if the leading coefficients are zero for some reason
+  nonzero_idx = 1
+  drho_degree = CS%drho_degree
+  do m = 1,CS%drho_degree+1
+    if (drho_poly_reversed(m) == 0.) then
+      drho_degree = drho_degree - 1
+      nonzero_idx = m + 1
+    else
+      exit
+    endif
+  enddo
+
+  call rpoly( drho_poly_reversed(nonzero_idx:CS%drho_degree+1), drho_degree, root_real, root_imag, failed )
+    ! print *, "Ref: ", T_ref, S_ref
+    ! print *, "T poly: ", ppoly_T
+    ! print *, "S_poly: ", ppoly_S
+    ! print *, "drho_poly:   ", drho_poly
+    ! print *, "drho_poly_r: ", drho_poly_reversed(nonzero_idx:CS%drho_degree+1)
+    ! print *, "real: ", root_real
+    ! print *, "imag: ", root_imag
+    ! pause
+  
+  if (failed) then
+   call MOM_error(FATAL, "Roots could not be found for polynomial")
+  endif
+  ! Loop over roots and choose the largest real root
+  z = z0
+  do m = 1,drho_degree
+    if ((root_real(m)>z) .and. (root_real(m)<=1.) .and. (root_imag(m) == 0.)) z = root_real(m)
+  enddo
+end function find_neutral_pos_linear_by_poly
 
 !> Search a layer to find where delta_rho = 0 based on a linear interpolation of alpha and beta of the top and bottom
 !! being searched and polynomial reconstructions of T and S. Compressibility is not needed because either, we are
