@@ -271,7 +271,7 @@ logical function neutral_diffusion_init(Time, G, US, param_file, diag, EOS, diab
   else
     CS%nsurf = 4*G%ke   ! Discontinuous means that every interface has four connections
     allocate(CS%column(SZI_(G),SZJ_(G)))
-    do i = G%isc-1,G%isc+1; do j=G%jsc-1, G%jsc+1
+    do i = G%isd,G%ied; do j=G%jsd, G%jed
       allocate(CS%column(i,j)%T_at_interface(G%ke,2)); CS%column(i,j)%T_at_interface(:,:) = 0.
       allocate(CS%column(i,j)%S_at_interface(G%ke,2)); CS%column(i,j)%S_at_interface(:,:) = 0.
       allocate(CS%column(i,j)%P_at_interface(G%ke,2)); CS%column(i,j)%P_at_interface(:,:) = 0.
@@ -403,22 +403,23 @@ subroutine neutral_diffusion_calc_coeffs(G, GV, US, h, T, S, CS, p_surf)
   if (.not. CS%continuous_reconstruction) then
     if (present(p_surf)) then
       do j=G%jsc-1,G%jec+1 ; do i=G%isc-1,G%iec+1
-        CS%P_i(i,j,1,1) = p_surf(i,j)
-        CS%P_i(i,j,1,2) = p_surf(i,j) + h(i,j,1)*(GV%H_to_RZ*GV%g_Earth)
+        CS%column(i,j)%P_at_interface(1,1) = p_surf(i,j)
+        CS%column(i,j)%P_at_interface(1,2) = p_surf(i,j) + h(i,j,1)*(GV%H_to_RZ*GV%g_Earth)
       enddo ; enddo
     else
       do j=G%jsc-1,G%jec+1 ; do i=G%isc-1,G%iec+1
-        CS%P_i(i,j,1,1) = 0.
-        CS%P_i(i,j,1,2) = h(i,j,1)*(GV%H_to_RZ*GV%g_Earth)
+        CS%column(i,j)%P_at_interface(1,1) = 0.
+        CS%column(i,j)%P_at_interface(1,2) = h(i,j,1)*(GV%H_to_RZ*GV%g_Earth)
       enddo ; enddo
     endif
     do k=2,G%ke ; do j=G%jsc-1,G%jec+1 ; do i=G%isc-1,G%iec+1
-      CS%P_i(i,j,k,1) = CS%P_i(i,j,k-1,2)
-      CS%P_i(i,j,k,2) = CS%P_i(i,j,k-1,2) + h(i,j,k)*(GV%H_to_RZ*GV%g_Earth)
+      CS%column(i,j)%P_at_interface(k,1) = CS%column(i,j)%P_at_interface(k-1,2)
+      CS%column(i,j)%P_at_interface(k,2) = CS%column(i,j)%P_at_interface(k-1,2) + h(i,j,k)*(GV%H_to_RZ*GV%g_Earth)
     enddo ; enddo ; enddo
   endif
 
   EOSdom(:) = EOS_domain(G%HI, halo=1)
+
   do j = G%jsc-1, G%jec+1
     ! Interpolate state to interface
     do i = G%isc-1, G%iec+1
@@ -449,17 +450,6 @@ subroutine neutral_diffusion_calc_coeffs(G, GV, US, h, T, S, CS, p_surf)
         if (CS%ref_pres<0) ref_pres(:) = CS%Pint(:,j,k)
         call calculate_density_derivs(CS%Tint(:,j,k), CS%Sint(:,j,k), ref_pres, CS%dRdT(:,j,k), &
                                       CS%dRdS(:,j,k), CS%EOS, EOSdom)
-      enddo
-    else ! Discontinuous reconstruction
-      do k = 1, G%ke
-        if (CS%ref_pres<0) ref_pres(:) = CS%Pint(:,j,k)
-        ! Calculate derivatives for the top interface
-        call calculate_density_derivs(CS%T_i(:,j,k,1), CS%S_i(:,j,k,1), ref_pres, CS%dRdT_i(:,j,k,1), &
-                                      CS%dRdS_i(:,j,k,1), CS%EOS, EOSdom)
-        if (CS%ref_pres<0) ref_pres(:) = CS%Pint(:,j,k+1)
-        ! Calculate derivatives at the bottom interface
-        call calculate_density_derivs(CS%T_i(:,j,k,2), CS%S_i(:,j,k,2), ref_pres, CS%dRdT_i(:,j,k,2), &
-                                      CS%dRdS_i(:,j,k,2), CS%EOS, EOSdom)
       enddo
     endif
   enddo
@@ -625,13 +615,13 @@ subroutine neutral_diffusion(G, GV, h, Coef_x, Coef_y, dt, Reg, US, CS)
         dTracer(:) = 0.
         do ks = 1,CS%nsurf-1
           k = CS%uKoL(I,j,ks)
-          dTracer(k) = dTracer(k) + Coef_x(I,j)   * uFlx(I,j,ks)
+          if (k>0) dTracer(k) = dTracer(k) + Coef_x(I,j)   * uFlx(I,j,ks)
           k = CS%uKoR(I-1,j,ks)
-          dTracer(k) = dTracer(k) - Coef_x(I-1,j) * uFlx(I-1,j,ks)
+          if (k>0) dTracer(k) = dTracer(k) - Coef_x(I-1,j) * uFlx(I-1,j,ks)
           k = CS%vKoL(i,J,ks)
-          dTracer(k) = dTracer(k) + Coef_y(i,J)   * vFlx(i,J,ks)
+          if (k>0) dTracer(k) = dTracer(k) + Coef_y(i,J)   * vFlx(i,J,ks)
           k = CS%vKoR(i,J-1,ks)
-          dTracer(k) = dTracer(k) - Coef_y(i,J-1) * vFlx(i,J-1,ks)
+          if (k>0) dTracer(k) = dTracer(k) - Coef_y(i,J-1) * vFlx(i,J-1,ks)
         enddo
         do k = 1, GV%ke
           tracer%t(i,j,k) = tracer%t(i,j,k) + dTracer(k) * &
@@ -1247,25 +1237,20 @@ subroutine find_neutral_surface_positions_discontinuous(CS, nk, left_column, rig
  
   ! Initialize all outputs
   KoL(:) = -1; KoR(:) = -1
-  PoL(:) = -1.; PoR(:) = -1.
+  PoL(:) = 0.; PoR(:) = 0.
   hEff(:) = 0.
-
   ! Return immediately nothing if one column is unstable
-  n_stable_left = 0; n_stable_right = 0
-  do k = 1,nk
-    if (left_column%stable_cell(k))  n_stable_left  = n_stable_left + 1 
-    if (right_column%stable_cell(k)) n_stable_right = n_stable_right + 1 
-  enddo
   if ( ALL(.not. left_column%stable_cell(:)) ) return
   if ( ALL(.not. right_column%stable_cell(:)) ) return
-  
+  kl_left = left_column%first_stable
+  kl_right = right_column%first_stable  
   ! Initialize variables for first iteration
   k_sub = 1
   left_finished  = .false. 
   right_finished = .false.
   searching_left_column  = .true.
   searching_right_column = .true.
-  
+
   ! Sweep down layer by layer to find neutral surfaces
   do k = 1,2*nk
     if (left_finished .or. right_finished) return
@@ -1275,7 +1260,7 @@ subroutine find_neutral_surface_positions_discontinuous(CS, nk, left_column, rig
     k_top_l = kl_left; k_top_r = kl_right 
     k_bot_l = kl_left; k_bot_r = kl_right 
     ! 
-    call interface_drho_and_derivs(CS, right_column, left_column, kl_right, kl_left, top_right, top_left, dRhoTop)
+    call interface_drho_and_derivs(CS, left_column, right_column, kl_left, kl_right, top_left, top_right, dRhoTop)
     if (dRhoTop<0.) then
       searching_left_column  = .true.
       searching_right_column = .false.
@@ -1285,16 +1270,14 @@ subroutine find_neutral_surface_positions_discontinuous(CS, nk, left_column, rig
       searching_left_column  = .false. 
       searching_right_column = .true.
       ! Need to switch the sign of dRhoTop because we will compare left to right
-      dRhoTop = -dRhoTop
     else
       searching_left_column  = .not. searching_left_column
       searching_right_column = .not. searching_right_column
     endif
-
     if (searching_left_column) then
-      call interface_drho_and_derivs(CS, right_column, left_column,                 &
-                                     kl_right, kl_left, top_right, bot_left, dRhoBot)
-      if (dRhoTop<0. .and. dRhoBot<0.) then ! Left cell is too light, try the next cell
+      call interface_drho_and_derivs(CS, left_column, right_column,                 &
+                                     kl_left, kl_right, bot_left, top_right, dRhoBot)
+      if (dRhoTop<0. .and. dRhoBot<0.) then ! Right cell is lighter than the left layer
         call next_layer(nk, left_column, kl_left, left_finished)
         cycle
       else
@@ -1302,29 +1285,28 @@ subroutine find_neutral_surface_positions_discontinuous(CS, nk, left_column, rig
                                       kl_right, top_right, kl_left)
         p_top_r = 0.
         ! Now check the bot interfaces
-        call interface_drho_and_derivs(CS, right_column, left_column,                       & 
-                                       kl_right, kl_left, bot_right, bot_left, dRhoBot)
+        call interface_drho_and_derivs(CS, left_column, right_column,                       & 
+                                       kl_left, kl_right, bot_left, bot_right, dRhoBot)
         if (dRhoBot == 0.) then ! Same density
           p_bot_l = 1.
           p_bot_r = 1.
           call next_layer(nk, left_column,  kl_left,  left_finished)
           call next_layer(nk, right_column, kl_right, right_finished)
-        elseif (dRhoBot < 0.) then
-          ! Right interface is lighter than left interface, so search left again
-          call interface_drho_and_derivs(CS, right_column, left_column,                    &
-                                         kl_right, kl_left, bot_right, top_left, dRhoTop)
+        elseif (dRhoBot > 0.) then
+          ! Right interface is lighter than left interface, so search left
+          call interface_drho_and_derivs(CS, left_column, right_column,                    &
+                                         kl_left, kl_right, top_left, bot_right, dRhoTop)
           ! Search was the same direction so dRhoBot = dRhoBot
           p_bot_l = search_other_column(CS, dRhoTop, dRhoBot, right_column, left_column, &
                                         kl_right, bot_right, kl_left)
           p_bot_r = 1.
           call next_layer(nk, right_column, kl_right, right_finished)
-          
-        elseif (dRhoBot > 0.) then
+        elseif (dRhoBot < 0.) then
           ! Left interface is lighter, so search right
-          call interface_drho_and_derivs(CS, left_column, right_column,                    &
-                                         kl_left, kl_right, bot_left, top_right, dRhoTop)
-          ! Searched in a different direction, switch sign of dRhoBot 
-          dRhoBot = -dRhoBot
+          call interface_drho_and_derivs(CS, right_column, left_column, &
+                                         kl_right, kl_left, top_right, bot_left, dRhoTop)
+          dRhoBot = - dRhoBot
+          ! Searched in a different direction
           p_bot_r = search_other_column(CS, dRhoTop, dRhoBot, left_column, right_column, &
                                         kl_left, bot_left, kl_right)
           p_bot_l = 1.
@@ -1332,43 +1314,43 @@ subroutine find_neutral_surface_positions_discontinuous(CS, nk, left_column, rig
         endif
       endif
     elseif (searching_right_column) then
-      call interface_drho_and_derivs(CS, left_column, right_column,                 &
-                                     kl_left, kl_right, top_left, bot_right, dRhobot)
-      if (dRhoTop<0. .and. dRhoBot<0.) then ! Left cell is too light, try the next cell
+      if (dRhoTop /= 0.) dRhoTop = -dRhoTop
+      call interface_drho_and_derivs(CS, right_column, left_column,                 &
+                                     kl_right, kl_left, bot_right, top_left, dRhobot)
+      if (dRhoTop<0. .and. dRhoBot<0.) then ! Left cell is lighter than right layer 
         call next_layer(nk, right_column, kl_right, right_finished)
         cycle
       else
         p_top_r = search_other_column(CS, dRhoTop, dRhoBot, left_column, right_column, &
                                       kl_left, top_left, kl_right)
         p_top_l = 0.
-        ! Now check the bottom interfaces
+        ! Now check the bot interfaces
         call interface_drho_and_derivs(CS, left_column, right_column,                       & 
                                        kl_left, kl_right, bot_left, bot_right, dRhoBot)
         if (dRhoBot == 0.) then ! Same density
+          p_bot_l = 1.
           p_bot_r = 1.
-          p_bot_l = 1.
+          call next_layer(nk, left_column,  kl_left,  left_finished)
           call next_layer(nk, right_column, kl_right, right_finished)
-          call next_layer(nk, left_column, kl_left, left_finished)
-        elseif (dRhoBot < 0.) then
-          ! Right interface is lighter than right interface, so search right again
-          call interface_drho_and_derivs(CS, left_column, right_column,                    &
-                                         kl_left, kl_right, bot_left, top_right, dRhoTop)
-          ! Search was the same direction so dRhoBot = dRhoBot
-          p_bot_r = search_other_column(CS, dRhoTop, dRhoBot, left_column, right_column, &
-                                        kl_left, bot_left, kl_right)
-          p_bot_l = 1.
-          call next_layer(nk, left_column, kl_left, left_finished)
-          
         elseif (dRhoBot > 0.) then
-          ! Left interface is lighter, so search left
-          call interface_drho_and_derivs(CS, right_column, left_column,                    &
-                                         kl_right, kl_left, bot_right, top_left, dRhoTop)
-          ! Searched in a different direction, switch sign of dRhoBot 
-          dRhoBot = -dRhoBot
+          ! Right interface is lighter than left interface, so search left
+          call interface_drho_and_derivs(CS, left_column, right_column,                    &
+                                         kl_left, kl_right, top_left, bot_right, dRhoTop)
+          ! Search was the same direction so dRhoBot = dRhoBot
           p_bot_l = search_other_column(CS, dRhoTop, dRhoBot, right_column, left_column, &
                                         kl_right, bot_right, kl_left)
           p_bot_r = 1.
           call next_layer(nk, right_column, kl_right, right_finished)
+        elseif (dRhoBot < 0.) then
+          ! Left interface is lighter, so search right
+          call interface_drho_and_derivs(CS, right_column, left_column, &
+                                         kl_right, kl_left, top_right, bot_left, dRhoTop)
+          dRhoBot = - dRhoBot
+          ! Searched in a different direction
+          p_bot_r = search_other_column(CS, dRhoTop, dRhoBot, left_column, right_column, &
+                                        kl_left, bot_left, kl_right)
+          p_bot_l = 1.
+          call next_layer(nk, left_column, kl_left, left_finished)
         endif
       endif
     endif
@@ -1391,7 +1373,11 @@ subroutine find_neutral_surface_positions_discontinuous(CS, nk, left_column, rig
       ! Calculate the harmonic mean 
       hsub_l = hl(k_top_l)*(p_bot_l-p_top_l)
       hsub_r = hr(k_top_r)*(p_bot_r-p_top_r)
-      hEff(k_sub) = 2.*((hsub_l*hsub_r)/(hsub_l+hsub_r))            
+      if (hsub_l /= 0. .and. hsub_r /= 0.) then
+        hEff(k_sub) = 2.*((hsub_l*hsub_r)/(hsub_l+hsub_r))
+      else
+        hEff(k_sub) = 0.
+      endif
       if (hEff(k_sub) > 0.) then
         KoL(k_sub) = k_top_l; KoR(k_sub) = k_top_r
         PoL(k_sub) = p_top_l; PoR(k_sub) = p_top_r
@@ -1433,8 +1419,7 @@ subroutine mark_unstable_cells(CS, nk, T, S, P, stable_cell, first_stable, last_
   last_stable  = 0
 
   do k = 1,nk
-    call calc_delta_rho_and_derivs( CS, T(k,2), S(k,2), max(P(k,2), CS%ref_pres), &
-                                        T(k,1), S(k,1), max(P(k,1), CS%ref_pres), delta_rho )
+    call calc_delta_rho_and_derivs( CS, T(k,2), S(k,2), P(k,2), T(k,1), S(k,1), P(k,1), delta_rho )
     stable_cell(k) = (delta_rho > 0.)
     if (stable_cell(k)) then
       first_stable = MIN(k,first_stable)
@@ -1814,10 +1799,10 @@ subroutine interface_drho_and_derivs(CS, col1, col2, kl_1, kl_2, ki_1, ki_2, del
 
   T1 = col1%T_at_interface(kl_1, ki_1)
   S1 = col1%S_at_interface(kl_1, ki_1)
-  P1 = col1%S_at_interface(kl_1, ki_1)
+  P1 = col1%P_at_interface(kl_1, ki_1)
   T2 = col2%T_at_interface(kl_2, ki_2)
   S2 = col2%S_at_interface(kl_2, ki_2)
-  P2 = col2%S_at_interface(kl_2, ki_2)
+  P2 = col2%P_at_interface(kl_2, ki_2)
 
   call calc_delta_rho_and_derivs(CS, T1, S1, P1, T2, S2, P2, delta_rho,                            &
                                  col1%dRdT(ki_1), col1%dRdS(ki_1), col2%dRdT(ki_2), col2%dRdS(ki_2))
@@ -1853,7 +1838,6 @@ subroutine calc_delta_rho_and_derivs(CS, T1, S1, p1_in, T2, S2, p2_in, drho, &
     p1 = p1_in
     p2 = p2_in
   endif
-
   ! Use the full linear equation of state to calculate the difference in density (expensive!)
   if     (TRIM(CS%delta_rho_form) == 'full') then
     pmid = 0.5 * (p1 + p2)
@@ -1883,8 +1867,6 @@ subroutine calc_delta_rho_and_derivs(CS, T1, S1, p1_in, T2, S2, p2_in, drho, &
 end subroutine calc_delta_rho_and_derivs
 
 !> Calculate delta rho from derivatives and gradients of properties
-!! \f$ \Delta \rho$ = \frac{1}{2}\left[ (\alpha_1 + \alpha_2)*(T_1-T_2) +
-!!                                   (\beta_1 + \beta_2)*(S_1-S_2)
 !! drho < 0 implies that parcel 2 is lighter than parcel 1
 function delta_rho_from_derivs( T1, S1, P1, dRdT1, dRdS1, &
                                 T2, S2, P2, dRdT2, dRdS2  ) result (drho)
@@ -2009,6 +1991,7 @@ subroutine neutral_surface_flux(nk, nsurf, deg, hl, hr, Tl, Tr, PiL, PiR, KoL, K
   endif
 
   do k_sublayer = 1, nsurf-1
+    if ( (KoL(k_sublayer) < 0) .or. (KoR(k_sublayer)<0) ) exit
     if (hEff(k_sublayer) == 0.) then
       Flx(k_sublayer) = 0.
     else
@@ -2449,232 +2432,284 @@ logical function ndiff_unit_tests_discontinuous(verbose)
   integer                     :: ns_l, ns_r
   integer :: k
   logical :: v
+  type(column_properties) :: left_column, right_column
 
   ndiff_unit_tests_discontinuous = .false. ! Normally return false
-!  v = verbose
-!  write(stdout,*) '==== MOM_neutral_diffusion: ndiff_unit_tests_discontinuous ='
-!
-!  ! Unit tests for find_neutral_surface_positions_discontinuous
-!  ! Salinity is 0 for all these tests
-!  allocate(CS%EOS)
-!  call EOS_manual_init(CS%EOS, form_of_EOS=EOS_LINEAR, dRho_dT=-1., dRho_dS=0.)
-!  Sl(:) = 0. ; Sr(:) = 0. ; ; SiL(:,:) = 0. ; SiR(:,:) = 0.
-!  ppoly_T_l(:,:) = 0.; ppoly_T_r(:,:) = 0.
-!  ppoly_S_l(:,:) = 0.; ppoly_S_r(:,:) = 0.
-!  ! Intialize any control structures needed for unit tests
-!  CS%ref_pres = -1.
-!
-!  hL = (/10.,10.,10./) ; hR = (/10.,10.,10./)
-!  Pres_l(1,1) = 0. ; Pres_l(1,2) = hL(1) ; Pres_r(1,1) = 0. ; Pres_r(1,2) = hR(1)
-!  do k = 2,nk
-!    Pres_l(k,1) = Pres_l(k-1,2)
-!    Pres_l(k,2) = Pres_l(k,1) + hL(k)
-!    Pres_r(k,1) = Pres_r(k-1,2)
-!    Pres_r(k,2) = Pres_r(k,1) + hR(k)
-!  enddo
-!  CS%delta_rho_form = 'mid_pressure'
-!  CS%neutral_pos_method = 1
-!
-!  TiL(1,:) = (/ 22.00, 18.00 /); TiL(2,:) = (/ 18.00, 14.00 /); TiL(3,:) = (/ 14.00, 10.00 /);
-!  TiR(1,:) = (/ 22.00, 18.00 /); TiR(2,:) = (/ 18.00, 14.00 /); TiR(3,:) = (/ 14.00, 10.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 0.00, 1.00, 1.00, 0.00, 0.00, 1.00, 1.00, 0.00, 0.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 1.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 10.00, 0.00, 0.00, 0.00, 10.00, 0.00, 0.00, 0.00, 10.00, 0.00 /),  & ! hEff
-!    'Identical Columns')
-!
-!  TiL(1,:) = (/ 22.00, 18.00 /); TiL(2,:) = (/ 18.00, 14.00 /); TiL(3,:) = (/ 14.00, 10.00 /);
-!  TiR(1,:) = (/ 20.00, 16.00 /); TiR(2,:) = (/ 16.00, 12.00 /); TiR(3,:) = (/ 12.00, 8.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 1.00 /),  & ! PoR
-!    (/ 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00 /),  & ! hEff
-!    'Right slightly cooler')
-!
-!  TiL(1,:) = (/ 20.00, 16.00 /); TiL(2,:) = (/ 16.00, 12.00 /); TiL(3,:) = (/ 12.00, 8.00 /);
-!  TiR(1,:) = (/ 22.00, 18.00 /); TiR(2,:) = (/ 18.00, 14.00 /); TiR(3,:) = (/ 14.00, 10.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00 /),  & ! hEff
-!    'Left slightly cooler')
-!
-!  TiL(1,:) = (/ 22.00, 20.00 /); TiL(2,:) = (/ 18.00, 16.00 /); TiL(3,:) = (/ 14.00, 12.00 /);
-!  TiR(1,:) = (/ 32.00, 24.00 /); TiR(2,:) = (/ 22.00, 14.00 /); TiR(3,:) = (/ 12.00, 4.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 1.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 1.00, 0.00, 0.00, 0.25, 0.50, 0.75, 1.00, 0.00, 0.00, 0.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 4.00, 0.00, 4.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
-!    'Right more strongly stratified')
-!
-!  TiL(1,:) = (/ 22.00, 18.00 /); TiL(2,:) = (/ 18.00, 14.00 /); TiL(3,:) = (/ 14.00, 10.00 /);
-!  TiR(1,:) = (/ 14.00, 14.00 /); TiR(2,:) = (/ 14.00, 14.00 /); TiR(3,:) = (/ 12.00, 8.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.50, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.50, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 5.00, 0.00 /),  & ! hEff
-!    'Deep Mixed layer on the right')
-!
-!  TiL(1,:) = (/ 14.00, 14.00 /); TiL(2,:) = (/ 14.00, 12.00 /); TiL(3,:) = (/ 10.00, 8.00 /);
-!  TiR(1,:) = (/ 14.00, 14.00 /); TiR(2,:) = (/ 14.00, 14.00 /); TiR(3,:) = (/ 14.00, 14.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.00, 1.00, 0.00, 1.00, 0.00, 1.00, 1.00, 1.00, 1.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
-!    'Right unstratified column')
-!
-!  TiL(1,:) = (/ 14.00, 14.00 /); TiL(2,:) = (/ 14.00, 12.00 /); TiL(3,:) = (/ 10.00, 8.00 /);
-!  TiR(1,:) = (/ 14.00, 14.00 /); TiR(2,:) = (/ 14.00, 14.00 /); TiR(3,:) = (/ 12.00, 4.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.00, 1.00, 1.00, 0.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.25, 0.50, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 4.00, 0.00 /),  & ! hEff
-!    'Right unstratified column')
-!
-!  TiL(1,:) = (/ 14.00, 14.00 /); TiL(2,:) = (/ 14.00, 10.00 /); TiL(3,:) = (/ 10.00, 2.00 /);
-!  TiR(1,:) = (/ 14.00, 14.00 /); TiR(2,:) = (/ 14.00, 10.00 /); TiR(3,:) = (/ 10.00, 2.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 1.00, 1.00, 1.00, 0.00, 0.00, 1.00, 1.00, 0.00, 0.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 1.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0.00, 0.00, 0.00, 10.00, 0.00 /),  & ! hEff
-!    'Identical columns with mixed layer')
-!
-!  TiL(1,:) = (/ 14.00, 12.00 /); TiL(2,:) = (/ 10.00, 10.00 /); TiL(3,:) = (/ 8.00, 2.00 /);
-!  TiR(1,:) = (/ 14.00, 12.00 /); TiR(2,:) = (/ 12.00, 8.00 /); TiR(3,:) = (/ 8.00, 2.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 0.00, 1.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 1.00, 1.00, 0.00, 1.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 10.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0.00 /),  & ! hEff
-!    'Left interior unstratified')
-!
-!  TiL(1,:) = (/ 12.00, 12.00 /); TiL(2,:) = (/ 12.00, 10.00 /); TiL(3,:) = (/ 10.00, 6.00 /);
-!  TiR(1,:) = (/ 12.00, 10.00 /); TiR(2,:) = (/ 10.00, 12.00 /); TiR(3,:) = (/ 8.00, 4.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 1.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.50, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.00, 0.00, 1.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.50, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 10.00, 0.00, 0.00, 0.00, 0.00, 0.00, 5.00, 0.00 /),  & ! hEff
-!    'Left mixed layer, Right unstable interior')
-!
-!  TiL(1,:) = (/ 14.00, 14.00 /); TiL(2,:) = (/ 10.00, 10.00 /); TiL(3,:) = (/ 8.00, 6.00 /);
-!  TiR(1,:) = (/ 10.00, 14.00 /); TiR(2,:) = (/ 16.00, 16.00 /); TiR(3,:) = (/ 12.00, 4.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 1.00, 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.00, 0.00, 1.00, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.50, 0.75, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 4.00, 0.00 /),  & ! hEff
-!    'Left thick mixed layer, Right unstable mixed')
-!
-!  TiL(1,:) = (/ 8.00, 12.00 /); TiL(2,:) = (/ 12.00, 10.00 /); TiL(3,:) = (/ 8.00, 4.00 /);
-!  TiR(1,:) = (/ 10.00, 14.00 /); TiR(2,:) = (/ 14.00, 12.00 /); TiR(3,:) = (/ 10.00, 6.00 /);
-!  call mark_unstable_cells( CS, nk, Til, Sil, Pres_l, stable_l )
-!  call mark_unstable_cells( CS, nk, Tir, Sir, Pres_r, stable_r )
-!  call find_neutral_surface_positions_discontinuous(CS, nk, Pres_l, hL, TiL, SiL, ppoly_T_l, ppoly_S_l, stable_l, &
-!           Pres_r, hR, TiR, SiR, ppoly_T_r, ppoly_S_r, stable_r, PoL, PoR, KoL, KoR, hEff)
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
-!    (/ 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3 /),  & ! KoL
-!    (/ 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3 /),  & ! KoR
-!    (/ 0.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.50, 1.00 /),  & ! PoL
-!    (/ 0.00, 0.00, 0.00, 1.00, 0.00, 1.00, 1.00, 0.00, 0.00, 0.50, 1.00, 1.00 /),  & ! PoR
-!    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 5.00, 0.00 /),  & ! hEff
-!    'Unstable mixed layers, left cooler')
-!
-!  call EOS_manual_init(CS%EOS, form_of_EOS = EOS_LINEAR, dRho_dT = -1., dRho_dS = 2.)
-!  ! Tests for linearized version of searching the layer for neutral surface position
-!  ! EOS linear in T, uniform alpha
-!  CS%max_iter = 10
-!  ! Unit tests require explicit initialization of tolerance
-!  CS%Drho_tol = 0.
-!  CS%x_tol = 0.
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
-!             find_neutral_pos_linear(CS, 0., 10., 35., -0.2, 0., &
-!                                     -0.2, 0., -0.2, 0.,                     &
-!                                     (/12.,-4./), (/34.,0./)), "Temp Uniform Linearized Alpha/Beta"))
-!  ! EOS linear in S, uniform beta
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
-!             find_neutral_pos_linear(CS, 0., 10., 35., 0., 0.8, &
-!                                     0., 0.8, 0., 0.8,                &
-!                                    (/12.,0./), (/34.,2./)), "Salt Uniform Linearized Alpha/Beta"))
-!  ! EOS linear in T/S, uniform alpha/beta
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5,   &
-!             find_neutral_pos_linear(CS, 0., 10., 35., -0.5, 0.5,                &
-!                                     -0.5, 0.5, -0.5, 0.5,  &
-!                                     (/12.,-4./), (/34.,2./)), "Temp/salt Uniform Linearized Alpha/Beta"))
-!  ! EOS linear in T, insensitive to So
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
-!             find_neutral_pos_linear(CS, 0., 10., 35., -0.2, 0., &
-!                                     -0.4, 0., -0.6, 0.,  &
-!                                     (/12.,-4./), (/34.,0./)), "Temp stratified Linearized Alpha/Beta"))
-!  ! EOS linear in S, insensitive to T
-!  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
-!             find_neutral_pos_linear(CS, 0., 10., 35., 0., 0.8,  &
-!                                      0., 1.0,  0., 0.5,  &
-!                                     (/12.,0./), (/34.,2./)), "Salt stratified Linearized Alpha/Beta"))
-!  if (.not. ndiff_unit_tests_discontinuous) write(stdout,*) 'Pass'
+  v = verbose
+  write(stdout,*) '==== MOM_neutral_diffusion: ndiff_unit_tests_discontinuous ='
+ 
+  ! Initialize the 'column' types
+  allocate(left_column%T_at_interface(nk,2))
+  allocate(left_column%S_at_interface(nk,2))
+  allocate(left_column%P_at_interface(nk,2))
+  allocate(left_column%T_poly(nk,2))
+  allocate(left_column%stable_cell(nk))
+  allocate(right_column%T_at_interface(nk,2))
+  allocate(right_column%S_at_interface(nk,2))
+  allocate(right_column%P_at_interface(nk,2))
+  allocate(right_column%T_poly(nk,2))
+  allocate(right_column%stable_cell(nk))
+ 
+  ! Unit tests for find_neutral_surface_positions_discontinuous
+  ! Salinity is 0 for all these tests
+  allocate(CS%EOS)
+  call EOS_manual_init(CS%EOS, form_of_EOS=EOS_LINEAR, dRho_dT=-1., dRho_dS=0.)
+  Sl(:) = 0. ; Sr(:) = 0. ; ; SiL(:,:) = 0. ; SiR(:,:) = 0.
+  ppoly_T_l(:,:) = 0.; ppoly_T_r(:,:) = 0.
+  ppoly_S_l(:,:) = 0.; ppoly_S_r(:,:) = 0.
+  ! Intialize any control structures needed for unit tests
+  CS%ref_pres = -1.
+ 
+  hL = (/10.,10.,10./) ; hR = (/10.,10.,10./)
+ 
+  left_column%P_at_interface(1,1)  = 0.; left_column%P_at_interface(1,2)  = hL(1)
+  right_column%P_at_interface(1,1) = 0.; right_column%P_at_interface(1,2) = hR(1)
+  do k = 2,nk
+    left_column%P_at_interface(k,1) = left_column%P_at_interface(k-1,2)
+    left_column%P_at_interface(k,2) = left_column%P_at_interface(k,1) + hL(k)
+    right_column%P_at_interface(k,1) = right_column%P_at_interface(k-1,2)
+    right_column%P_at_interface(k,2) = right_column%P_at_interface(k,1) + hR(k)
+  enddo
+  CS%delta_rho_form = 'mid_pressure'
+  CS%neutral_pos_method = 1
+  
+  left_column%T_at_interface(1,:)  = (/ 22.00, 18.00 /)
+  left_column%T_at_interface(2,:)  = (/ 18.00, 14.00 /)
+  left_column%T_at_interface(3,:)  = (/ 14.00, 10.00 /)
+  right_column%T_at_interface(1,:) = (/ 22.00, 18.00 /)
+  right_column%T_at_interface(2,:) = (/ 18.00, 14.00 /)
+  right_column%T_at_interface(3,:) = (/ 14.00, 10.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 1, 1, 2, 2, 3, 3, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 1, 1, 2, 2, 3, 3, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 10.00, 0.00, 10.00, 0.00, 10.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Identical Columns')
+ 
+  left_column%T_at_interface(1,:)  = (/ 22.00, 18.00 /)
+  left_column%T_at_interface(2,:)  = (/ 18.00, 14.00 /)
+  left_column%T_at_interface(3,:)  = (/ 14.00, 10.00 /)
+  right_column%T_at_interface(1,:) = (/ 20.00, 16.00 /)
+  right_column%T_at_interface(2,:) = (/ 16.00, 12.00 /)
+  right_column%T_at_interface(3,:) = (/ 12.00, 8.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, -1, -1 /),  & ! KoL
+    (/ 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, -1, -1 /),  & ! KoR
+    (/ 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.00, 0.00 /),  & ! PoR
+    (/ 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 0.00 /),  & ! hEff
+    'Right slightly cooler')
+ 
+  left_column%T_at_interface(1,:)  = (/ 20.00, 16.00 /)
+  left_column%T_at_interface(2,:)  = (/ 16.00, 12.00 /)
+  left_column%T_at_interface(3,:)  = (/ 12.00, 8.00 /)
+  right_column%T_at_interface(1,:) = (/ 22.00, 18.00 /)
+  right_column%T_at_interface(2,:) = (/ 18.00, 14.00 /)
+  right_column%T_at_interface(3,:) = (/ 14.00, 10.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, -1, -1 /),  & ! KoL
+    (/ 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, -1, -1 /),  & ! KoR
+    (/ 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.00, 0.00 /),  & ! PoL
+    (/ 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.50, 0.50, 1.00, 0.00, 0.00 /),  & ! PoR
+    (/ 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 5.00, 0.00, 0.00 /),  & ! hEff
+    'Right slightly cooler')
+ 
+  left_column%T_at_interface(1,:)  = (/ 20.00, 16.00 /)
+  left_column%T_at_interface(2,:)  = (/ 15.00, 12.00 /)
+  left_column%T_at_interface(3,:)  = (/ 12.00, 9.00 /)
+  right_column%T_at_interface(1,:) = (/ 20.00, 19.00 /)
+  right_column%T_at_interface(2,:) = (/ 19.00, 18.00 /)
+  right_column%T_at_interface(3,:) = (/ 18.00, 17.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 1, 1, 2, 2, 3, 3, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 0.25, 0.25, 0.50, 0.50, 0.75, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 4.00, 0.00, 4.00, 0.00, 4.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Entire right column to one layer')
+
+  left_column%T_at_interface(1,:)  = (/ 22.00, 20.00 /)
+  left_column%T_at_interface(2,:)  = (/ 18.00, 16.00 /)
+  left_column%T_at_interface(3,:)  = (/ 14.00, 12.00 /)
+  right_column%T_at_interface(1,:) = (/ 32.00, 24.00 /)
+  right_column%T_at_interface(2,:) = (/ 22.00, 14.00 /)
+  right_column%T_at_interface(3,:) = (/ 12.00, 4.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 1, 1, 2, 2, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 2, 2, 2, 2, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 0.25, 0.50, 0.75, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 4.00, 0.00, 4.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Right more strongly stratified')
+
+  left_column%T_at_interface(1,:)  = (/ 22.00, 18.00 /)
+  left_column%T_at_interface(2,:)  = (/ 18.00, 14.00 /)
+  left_column%T_at_interface(3,:)  = (/ 14.00, 10.00 /)
+  right_column%T_at_interface(1,:) = (/ 14.00, 14.00 /)
+  right_column%T_at_interface(2,:) = (/ 14.00, 14.00 /)
+  right_column%T_at_interface(3,:) = (/ 12.00, 8.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 3, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 3, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.50, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 0.50, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 5.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Deep Mixed layer on the right')
+
+  left_column%T_at_interface(1,:)  = (/ 14.00, 14.00 /)
+  left_column%T_at_interface(2,:)  = (/ 14.00, 12.00 /)
+  left_column%T_at_interface(3,:)  = (/ 10.00, 8.00 /)
+  right_column%T_at_interface(1,:) = (/ 14.00, 14.00 /)
+  right_column%T_at_interface(2,:) = (/ 14.00, 14.00 /)
+  right_column%T_at_interface(3,:) = (/ 14.00, 14.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Right unstratified column')
+
+  left_column%T_at_interface(1,:)  = (/ 14.00, 14.00 /)
+  left_column%T_at_interface(2,:)  = (/ 14.00, 10.00 /)
+  left_column%T_at_interface(3,:)  = (/ 10.00, 2.00 /)
+  right_column%T_at_interface(1,:) = (/ 14.00, 14.00 /)
+  right_column%T_at_interface(2,:) = (/ 14.00, 10.00 /)
+  right_column%T_at_interface(3,:) = (/ 10.00, 2.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 2, 2, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 2, 2, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 10.00, 0.00, 10.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Identical columns with mixed layer')
+
+  left_column%T_at_interface(1,:)  = (/ 14.00, 12.00 /)
+  left_column%T_at_interface(2,:)  = (/ 10.00, 10.00 /)
+  left_column%T_at_interface(3,:)  = (/ 8.00, 2.00 /)
+  right_column%T_at_interface(1,:) = (/ 14.00, 12.00 /)
+  right_column%T_at_interface(2,:) = (/ 12.00, 8.00 /)
+  right_column%T_at_interface(3,:) = (/ 8.00, 2.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 1, 1, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 1, 1, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 1.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 10.00, 0.00, 10.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Left interior unstratified')
+
+  left_column%T_at_interface(1,:)  = (/ 12.00, 12.00 /)
+  left_column%T_at_interface(2,:)  = (/ 12.00, 10.00 /)
+  left_column%T_at_interface(3,:)  = (/ 10.00, 6.00 /)
+  right_column%T_at_interface(1,:) = (/ 12.00, 10.00 /)
+  right_column%T_at_interface(2,:) = (/ 10.00, 12.00 /)
+  right_column%T_at_interface(3,:) = (/ 8.00, 4.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 2, 2, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 1, 1, 3, 3, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 1.00, 0.50, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.00, 1.00, 0.00, 0.50, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 10.00, 0.00, 5.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Left mixed layer, Right unstable interior')
+
+  left_column%T_at_interface(1,:)  = (/ 14.00, 14.00 /)
+  left_column%T_at_interface(2,:)  = (/ 10.00, 10.00 /)
+  left_column%T_at_interface(3,:)  = (/ 8.00, 6.00 /)
+  right_column%T_at_interface(1,:) = (/ 10.00, 14.00 /)
+  right_column%T_at_interface(2,:) = (/ 16.00, 16.00 /)
+  right_column%T_at_interface(3,:) = (/ 12.00, 4.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 3, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 3, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.50, 0.75, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 4.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Left thick mixed layer, Right unstable mixed')
+
+  left_column%T_at_interface(1,:)  = (/ 8.00, 12.00 /)
+  left_column%T_at_interface(2,:)  = (/ 12.00, 10.00 /)
+  left_column%T_at_interface(3,:)  = (/ 8.00, 4.00 /)
+  right_column%T_at_interface(1,:) = (/ 10.00, 14.00 /)
+  right_column%T_at_interface(2,:) = (/ 14.00, 12.00 /)
+  right_column%T_at_interface(3,:) = (/ 10.00, 6.00 /)
+  call column_mark_unstable( CS, nk, left_column )
+  call column_mark_unstable( CS, nk, right_column )
+  call find_neutral_surface_positions_discontinuous(CS, nk, left_column, right_column, hL, hR, PoL, PoR, KoL, KoR, hEff)
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or.  test_nsp(v, 12, KoL, KoR, PoL, PoR, hEff, &
+    (/ 3, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoL
+    (/ 3, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 /),  & ! KoR
+    (/ 0.00, 0.50, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoL
+    (/ 0.50, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! PoR
+    (/ 5.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00 /),  & ! hEff
+    'Unstable mixed layers, left cooler')
+
+
+  call EOS_manual_init(CS%EOS, form_of_EOS = EOS_LINEAR, dRho_dT = -1., dRho_dS = 2.)
+  ! Tests for linearized version of searching the layer for neutral surface position
+  ! EOS linear in T, uniform alpha
+  CS%max_iter = 10
+  ! Unit tests require explicit initialization of tolerance
+  CS%Drho_tol = 0.
+  CS%x_tol = 0.
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
+             find_neutral_pos_linear(CS, 10., 35., -0.2, 0., &
+                                     -0.2, 0., -0.2, 0.,                     &
+                                     (/12.,-4./), (/34.,0./)), "Temp Uniform Linearized Alpha/Beta"))
+  ! EOS linear in S, uniform beta
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
+             find_neutral_pos_linear(CS, 10., 35., 0., 0.8, &
+                                     0., 0.8, 0., 0.8,                &
+                                    (/12.,0./), (/34.,2./)), "Salt Uniform Linearized Alpha/Beta"))
+  ! EOS linear in T/S, uniform alpha/beta
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5,   &
+             find_neutral_pos_linear(CS, 10., 35., -0.5, 0.5,                &
+                                     -0.5, 0.5, -0.5, 0.5,  &
+                                     (/12.,-4./), (/34.,2./)), "Temp/salt Uniform Linearized Alpha/Beta"))
+  ! EOS linear in T, insensitive to So
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
+             find_neutral_pos_linear(CS, 10., 35., -0.2, 0., &
+                                     -0.4, 0., -0.6, 0.,  &
+                                     (/12.,-4./), (/34.,0./)), "Temp stratified Linearized Alpha/Beta"))
+  ! EOS linear in S, insensitive to T
+  ndiff_unit_tests_discontinuous = ndiff_unit_tests_discontinuous .or. (test_rnp(0.5, &
+             find_neutral_pos_linear(CS, 10., 35., 0., 0.8,  &
+                                      0., 1.0,  0., 0.5,  &
+                                     (/12.,0./), (/34.,2./)), "Salt stratified Linearized Alpha/Beta"))
+  if (.not. ndiff_unit_tests_discontinuous) write(stdout,*) 'Pass'
 
 end function ndiff_unit_tests_discontinuous
 
