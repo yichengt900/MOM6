@@ -21,14 +21,13 @@ use MOM_remapping,             only : average_value_ppoly, remappingSchemesDoc, 
 use MOM_tracer_registry,       only : tracer_registry_type, tracer_type
 use MOM_unit_scaling,          only : unit_scale_type
 use MOM_verticalGrid,          only : verticalGrid_type
-use polynomial_functions,      only : evaluation_polynomial, first_derivative_polynomial
+use polynomial_functions,      only : evaluation_polynomial, first_derivative_polynomial, analytic_derivative
 use PPM_functions,             only : PPM_reconstruction, PPM_boundary_extrapolation
 use regrid_edge_values,        only : edge_values_implicit_h4
 use MOM_CVMix_KPP,             only : KPP_get_BLD, KPP_CS
 use MOM_energetic_PBL,         only : energetic_PBL_get_MLD, energetic_PBL_CS
 use MOM_diabatic_driver,       only : diabatic_CS, extract_diabatic_member
 use MOM_lateral_boundary_diffusion, only : boundary_k_range, SURFACE, BOTTOM
-use poly_roots,                only : rpoly
 
 use iso_fortran_env, only : stdout=>output_unit, stderr=>error_unit
 
@@ -1497,8 +1496,9 @@ subroutine next_layer(nk, column, kl, reached_bottom)
   endif
 
 end subroutine next_layer
+
 !> Similar to find_neutral_pos_linear, except that a root-finding algorithm is applied to the N+1 degree polynomial
-!! resulting from convolution of delta rho with the N-degree polynomial representations of T and S
+!! resulting from using N-degree polynomial representations of T and S in delta rho
 function find_neutral_pos_linear_by_poly( CS, T_ref, S_ref, dRdT_ref, dRdS_ref, &
                                   dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, ppoly_T, ppoly_S ) result( z )
   type(neutral_diffusion_CS),intent(in) :: CS        !< Control structure with parameters for this module
@@ -1523,16 +1523,16 @@ function find_neutral_pos_linear_by_poly( CS, T_ref, S_ref, dRdT_ref, dRdS_ref, 
   real                                  :: z         !< Position where drho = 0 [nondim]
   ! Local variables
   real(kind=8), dimension(CS%drho_degree+1) :: drho_poly, drho_poly_reversed
-  real(kind=8), dimension(CS%drho_degree)   :: root_real, root_imag
-  logical :: failed 
+  real(kind=8), dimension(CS%drho_degree)   :: roots
+  logical :: failed, degenerate
   integer :: m, drho_degree, nonzero_idx
+  real :: p, q, asquared, a, b, c, d, bsquared, discriminant, sub_root_calc, coef, pi
 
+  ! The delta rho polynomial coeffs follow the remapping convention: a1 + a2*x + a3*x^2 ...
   drho_poly(1) = 0.5*( (ppoly_T(1) - T_ref)*(dRdT_top + dRdT_ref) + (ppoly_S(1) - S_ref)*(dRdS_top + dRdS_ref) )
 
   drho_poly(2) = 0.5*( (T_ref - ppoly_T(1))*(dRdT_top - dRdT_bot) + ppoly_T(2)*(dRdT_top + dRdT_ref) + &
                        (S_ref - ppoly_S(1))*(dRdS_top - dRdS_bot) + ppoly_S(2)*(dRdS_top + dRdS_ref)   )
-                     
-                  
   if (CS%drho_degree == 2) then
     drho_poly(3) = 0.5*( ppoly_T(2)*(dRdT_bot - dRdT_top) + ppoly_S(2)*(dRdS_bot - dRdS_top) )
   else if (CS%drho_degree == 3) then
@@ -1542,30 +1542,123 @@ function find_neutral_pos_linear_by_poly( CS, T_ref, S_ref, dRdT_ref, dRdS_ref, 
   else
     call MOM_error(FATAL,"Combination of reconstruction and EOS approximation not supported")
   endif
-  
-  drho_poly_reversed = drho_poly(CS%drho_degree+1:1:-1)
-  ! Reduce degree of polynomial if the leading coefficients are zero for some reason
-  nonzero_idx = 1
-  drho_degree = CS%drho_degree
-  do m = 1,CS%drho_degree+1
-    if (drho_poly_reversed(m) == 0.) then
-      drho_degree = drho_degree - 1
-      nonzero_idx = m + 1
-    else
-      exit
-    endif
-  enddo
 
-  call rpoly( drho_poly_reversed(nonzero_idx:CS%drho_degree+1), drho_degree, root_real, root_imag, failed )
-  if (failed) then
-   call MOM_error(FATAL, "Roots could not be found for polynomial")
-  endif
-  ! Loop over roots and choose the largest real root
-  z = 0.
-  do m = 1,drho_degree
-    if ((root_real(m)>z) .and. (root_real(m)<=1.) .and. (root_imag(m) == 0.)) z = root_real(m)
+  ! Check the coeffs to find the actual degree of the polynomial. For example, if using PPM and a linear EOS
+  ! drho_poly(4) would be 0.
+  nonzero_idx = CS%drho_degree + 1
+  do while( drho_poly(nonzero_idx)==0. )
+    nonzero_idx = nonzero_idx - 1
+    if (nonzero_idx == 1) exit
   enddo
+  drho_degree = nonzero_idx - 1
+
+  if (drho_degree == 0) then
+    ! Undefined position
+    z = -1
+  elseif (drho_degree == 1) then
+    if (drho_poly(1) == 0.) then
+      roots(1) = 0
+    else
+      roots(1) = -drho_poly(2)/drho_poly(1)
+    endif
+  elseif (drho_degree == 2) then    
+    roots(:) = -1.
+    ! Convert to a monic quadratic
+    p = drho_poly(2)/drho_poly(3)
+    q = drho_poly(1)/drho_poly(3)
+    discriminant = p*p-4*q
+    ! Two real roots
+    if ( discriminant > 0.) then
+      roots(1) = 0.5*(-p + SQRT(discriminant))
+      roots(2) = 0.5*(-p - SQRT(discriminant))
+      ! Following should be more accurate if one root is much larger than the other
+      if ( ABS(roots(1))>ABS(roots(2)) ) then
+        roots(2) = q / roots(1)
+      else
+        roots(1) = q / roots(2)
+      endif
+      ! No real roots
+    elseif ( discriminant < 0. ) then
+      roots(:) = -1
+    else
+      roots(:) = -0.5*p
+    endif
+  elseif (drho_degree == 3) then
+    roots(:) = -1.
+    a = drho_poly(4)
+    b = drho_poly(3)
+    c = drho_poly(2)
+    d = drho_poly(1)
+    ! Convert to depressed cubic t**3 + p*t + q
+    asquared = a*a
+    bsquared = b*b
+    p = (3.*(a*c) - bsquared)/(3.*asquared)
+    q = (2.*(bsquared*b) - 9.*(a*(b*c)) + 27.*(asquared*d))/(27.*(asquared*a))
+    discriminant = -(4.*(p**3) + 27.*q*q)
+    if (discriminant == 0.) then ! One double root and one simple root
+      roots(1) = 3.*(q/p)
+      roots(1) = roots(1) - b/(3.*a)
+      roots(2) = -1.5*(q/p)
+      roots(2) = roots(2) - b/(3.*a)
+    elseif (discriminant < 0.) then ! One real root
+      sub_root_calc = SQRT(0.25*q*q + p**3/27.)
+      roots(1) = cbrt(-0.5*q + sub_root_calc) + cbrt(-0.5*q - sub_root_calc)
+      roots(1) = roots(1) - b/(3.*a)
+    else ! Three real roots
+      pi = 4.*ATAN(1.)
+      coef = 2.*SQRT(-p/3.)
+      sub_root_calc = ACOS(1.5*((q/p)*SQRT(-3./p)))/3.
+      do m = 0,2
+        roots(m+1) = coef*COS(sub_root_calc - (2./3.)*(pi*m))
+        roots(m+1) = roots(m+1) - b/(3.*a)
+      enddo
+    endif
+  endif
+
+  if (drho_degree > 0) then
+    do m = 1,drho_degree
+      if (roots(m)<0. .or. roots(m)>1.) then
+        roots(m) = -1
+      else
+        roots(m) = polish_root(roots(m), drho_poly(1:drho_degree+1), drho_degree)
+      endif
+    enddo
+    z = MAXVAL(roots)
+  endif
+
 end function find_neutral_pos_linear_by_poly
+
+! Compute the cube root of a value that works for both positive and negative numbers
+real function cbrt(x)
+  real, intent(in) :: x !< Number for which the cube root will be calculated
+
+  cbrt = SIGN( EXP(LOG(ABS(X))/3.), x )
+
+end function cbrt
+
+!> Use Halley's method to polish off the root
+real function polish_root( z, poly_coeffs, degree )
+  real, intent(in)          :: z           !< Original root
+  real, dimension(degree+1) :: poly_coeffs !< Coefficients of the polynomial 
+  integer                   :: degree      !< Degree of the polynomial
+
+  real, dimension(degree)   :: deriv1 !< First derivative
+  real, dimension(degree-1) :: deriv2 !< Second derivative
+  real :: f, f1, f2, diff_z
+  integer :: m
+
+  polish_root = z
+  if (degree > 1) then
+    call analytic_derivative(poly_coeffs, degree, deriv1)
+    call analytic_derivative(deriv1, degree-1, deriv2)
+    f  = evaluation_polynomial( poly_coeffs, degree+1, polish_root)
+    f1 = evaluation_polynomial( deriv1, degree, polish_root)
+    f2 = evaluation_polynomial( deriv2, degree-1, polish_root)
+    diff_z = polish_root
+    polish_root = polish_root - 2.*((f*f1)/(2.*(f1*f1) - f*f2))
+  endif
+
+end function polish_root
 
 !> Search a layer to find where delta_rho = 0 based on a linear interpolation of alpha and beta of the top and bottom
 !! being searched and polynomial reconstructions of T and S. Compressibility is not needed because either, we are

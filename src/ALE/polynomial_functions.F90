@@ -5,7 +5,7 @@ module polynomial_functions
 
 implicit none ; private
 
-public :: evaluation_polynomial, integration_polynomial, first_derivative_polynomial
+public :: evaluation_polynomial, integration_polynomial, first_derivative_polynomial, analytic_derivative
 
 contains
 
@@ -98,6 +98,18 @@ real function integration_polynomial( xi0, xi1, Coeff, npoly )
   integration_polynomial = integral
 
 end function integration_polynomial
+
+!> Calculate the coefficents of the polynomial's derivative
+subroutine analytic_derivative(coeff, degree, deriv)
+  real, dimension(degree+1), intent(in   ) :: coeff  !< Coefficients of the polynomial
+  integer,                   intent(in   ) :: degree !< Degree of the polynomial
+  real, dimension(degree),   intent(  out) :: deriv  !< Coefficients of the derivative
+
+  integer :: m
+  do m = 2,degree+1
+    deriv(m-1) = (m-1)*coeff(m)
+  enddo
+end subroutine analytic_derivative
 
 !> \namespace polynomial_functions
 !!
