@@ -142,7 +142,7 @@ function left_reals(r,sep)
   real, intent(in) :: r(:) !< The array of real variables to convert to a string
   character(len=*), optional, intent(in) :: sep !< The separator between
                                     !! successive values, by default it is ', '.
-  character(len=1320) :: left_reals !< The output string
+  character(len=13200) :: left_reals !< The output string
 
   integer :: j, n, b, ns
   logical :: doWrite

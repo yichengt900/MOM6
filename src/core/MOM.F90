@@ -1293,12 +1293,12 @@ subroutine step_MOM_thermo(CS, G, GV, US, u, v, h, tv, fluxes, dtdia, &
         call check_redundant("Pre-ALE ", u, v, G)
       endif
       call cpu_clock_begin(id_clock_ALE)
-      if (use_ice_shelf) then
-        call ALE_main(G, GV, US, h, u, v, tv, CS%tracer_Reg, CS%ALE_CSp, CS%OBC, &
-                      dtdia, fluxes%frac_shelf_h)
-      else
-        call ALE_main(G, GV, US, h, u, v, tv, CS%tracer_Reg, CS%ALE_CSp, CS%OBC, dtdia)
-      endif
+      !if (use_ice_shelf) then
+      !  call ALE_main(G, GV, US, h, u, v, tv, CS%tracer_Reg, CS%ALE_CSp, CS%OBC, &
+      !                dtdia, fluxes%frac_shelf_h)
+      !else
+      !  call ALE_main(G, GV, US, h, u, v, tv, CS%tracer_Reg, CS%ALE_CSp, CS%OBC, dtdia)
+      !endif
 
       if (showCallTree) call callTree_waypoint("finished ALE_main (step_MOM_thermo)")
       call cpu_clock_end(id_clock_ALE)

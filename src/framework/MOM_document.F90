@@ -623,7 +623,7 @@ end function real_string
 !> Returns a character string of a comma-separated, compact formatted, reals
 !> e.g. "1., 2., 5*3., 5.E2", that give the list of values.
 function real_array_string(vals, sep)
-  character(len=1320)    :: real_array_string !< The output string listing vals
+  character(len=13200)    :: real_array_string !< The output string listing vals
   real,      intent(in)  :: vals(:) !< The array of values to record
   character(len=*), &
     optional, intent(in) :: sep     !< The separator between successive values,
