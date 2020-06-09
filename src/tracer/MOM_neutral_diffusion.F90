@@ -1441,6 +1441,9 @@ real function search_other_column(CS, dRhoTop, dRhoBot, from_column, other_colum
   integer,                    intent(in   ) :: ki_from     !< The interface of the column being searched from
   integer,                    intent(in   ) :: kl_other    !< The layer index of the column to be searched
 
+  real :: dRdT_top, dRdT_bot, dRdS_top, dRdS_bot, dRdT1, dRdT2, dRdS1, dRdS2, drho
+  real :: T_other, S_other, P_other, T_from, S_from, P_from
+
   if ( dRhoBot == 0. ) then      ! Matches perfectly at the bottom
     pos = 1.
   elseif ( dRhoTop == 0. ) then  ! Matches perfectly at the top
@@ -1452,11 +1455,26 @@ real function search_other_column(CS, dRhoTop, dRhoBot, from_column, other_colum
     ! of the midpoint of the layer being searched and the interface being searched from
     elseif (CS%neutral_pos_method == 2) then
       if ( (CS%drho_degree == 2) .or. (CS%drho_degree == 3) ) then
+        T_from = from_column%T_at_interface(kl_from, ki_from)
+        S_from = from_column%S_at_interface(kl_from, ki_from)
+        P_from = from_column%P_at_interface(kl_from, ki_from)
+        T_other = from_column%T_at_interface(kl_other, 1)
+        S_other = from_column%S_at_interface(kl_other, 1)
+        P_other = from_column%P_at_interface(kl_other, 1)
+        call calc_delta_rho_and_derivs( CS, T_from, S_from, P_from, T_other, S_other, P_other, drho, &
+                                        dRdT1, dRdS1, dRdT2, dRdS2)
+        dRdT_top = dRdT1 + dRdT2
+        dRdS_top = dRdS1 + dRdS1
+        T_other = from_column%T_at_interface(kl_other, 2)
+        S_other = from_column%S_at_interface(kl_other, 2)
+        P_other = from_column%P_at_interface(kl_other, 2)
+        call calc_delta_rho_and_derivs( CS, T_from, S_from, P_from, T_other, S_other, P_other, drho, &
+                                        dRdT1, dRdS1, dRdT2, dRdS2)
+        dRdT_bot = dRdT1 + dRdT2
+        dRdS_bot = dRdS1 + dRdS1
         pos = find_neutral_pos_linear_by_poly( CS, from_column%T_at_interface(kl_from, ki_from),                   &
                                                    from_column%S_at_interface(kl_from, ki_from),                   &
-                                                   from_column%dRdT(ki_from), from_column%dRdS(ki_from),           &
-                                                   other_column%dRdT(1), other_column%dRdS(1),                     &
-                                                   other_column%dRdT(2), other_column%dRdS(2),                     &
+                                                   dRdT_top, dRdS_top, dRdT_bot, dRdS_bot,                         &
                                                    other_column%T_poly(kl_other,:), other_column%S_poly(kl_other,:))
       else
         pos = find_neutral_pos_linear( CS, from_column%T_at_interface(kl_from, ki_from),                   &
@@ -1499,22 +1517,18 @@ end subroutine next_layer
 
 !> Similar to find_neutral_pos_linear, except that a root-finding algorithm is applied to the N+1 degree polynomial
 !! resulting from using N-degree polynomial representations of T and S in delta rho
-function find_neutral_pos_linear_by_poly( CS, T_ref, S_ref, dRdT_ref, dRdS_ref, &
-                                  dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, ppoly_T, ppoly_S ) result( z )
+function find_neutral_pos_linear_by_poly( CS, T_ref, S_ref, dRdT_top, dRdS_top, dRdT_bot, dRdS_bot, ppoly_T, ppoly_S )&
+          result( z )
   type(neutral_diffusion_CS),intent(in) :: CS        !< Control structure with parameters for this module
   real,                      intent(in) :: T_ref     !< Temperature at the searched from interface [degC]
   real,                      intent(in) :: S_ref     !< Salinity at the searched from interface [ppt]
-  real,                      intent(in) :: dRdT_ref  !< dRho/dT at the searched from interface
+  real,                      intent(in) :: dRdT_top  !< Sum of alpha at the top interface and the searched from interface
                                                      !! [R degC-1 ~> kg m-3 degC-1]
-  real,                      intent(in) :: dRdS_ref  !< dRho/dS at the searched from interface
+  real,                      intent(in) :: dRdS_top  !< Sum of beta at the searched from interface
                                                      !! [R ppt-1 ~> kg m-3 ppt-1]
-  real,                      intent(in) :: dRdT_top  !< dRho/dT at top of layer being searched
+  real,                      intent(in) :: dRdT_bot  !< Sum of dRho/dT at bottom interface and searched from interface
                                                      !! [R degC-1 ~> kg m-3 degC-1]
-  real,                      intent(in) :: dRdS_top  !< dRho/dS at top of layer being searched
-                                                     !! [R ppt-1 ~> kg m-3 ppt-1]
-  real,                      intent(in) :: dRdT_bot  !< dRho/dT at bottom of layer being searched
-                                                     !! [R degC-1 ~> kg m-3 degC-1]
-  real,                      intent(in) :: dRdS_bot  !< dRho/dS at bottom of layer being searched
+  real,                      intent(in) :: dRdS_bot  !< Sum of dRho/dS at bottom interface and searched from interface
                                                      !! [R ppt-1 ~> kg m-3 ppt-1]
   real, dimension(:),        intent(in) :: ppoly_T   !< Coefficients of the polynomial reconstruction of T within
                                                      !! the layer to be searched [degC].
@@ -1529,16 +1543,18 @@ function find_neutral_pos_linear_by_poly( CS, T_ref, S_ref, dRdT_ref, dRdS_ref, 
   real :: p, q, asquared, a, b, c, d, bsquared, discriminant, sub_root_calc, coef, pi
 
   ! The delta rho polynomial coeffs follow the remapping convention: a1 + a2*x + a3*x^2 ...
-  drho_poly(1) = 0.5*( (ppoly_T(1) - T_ref)*(dRdT_top + dRdT_ref) + (ppoly_S(1) - S_ref)*(dRdS_top + dRdS_ref) )
+  ! Note that a factor of 1/2 can (and has been) be dropped because 
+  ! (a1 + a2*x +a3*x^2) = 0 and (0.5)*(a1+a2*x+a3*x^2) = 0 have the same roots
+  drho_poly(1) = (ppoly_T(1) - T_ref)*dRdT_top + (ppoly_S(1) - S_ref)*dRdS_top
 
-  drho_poly(2) = 0.5*( (T_ref - ppoly_T(1))*(dRdT_top - dRdT_bot) + ppoly_T(2)*(dRdT_top + dRdT_ref) + &
-                       (S_ref - ppoly_S(1))*(dRdS_top - dRdS_bot) + ppoly_S(2)*(dRdS_top + dRdS_ref)   )
+  drho_poly(2) = ((ppoly_T(1) - T_ref)*(dRdT_bot-dRdT_top) + ppoly_T(2)*dRdT_top) + & 
+                 ((ppoly_S(1) - S_ref)*(dRdS_bot-dRdS_top) + ppoly_S(2)*dRdS_top)
   if (CS%drho_degree == 2) then
-    drho_poly(3) = 0.5*( ppoly_T(2)*(dRdT_bot - dRdT_top) + ppoly_S(2)*(dRdS_bot - dRdS_top) )
+    drho_poly(3) = ppoly_T(2)*(dRdT_bot - dRdT_top) + ppoly_S(2)*(dRdS_bot - dRdS_top) 
   else if (CS%drho_degree == 3) then
-    drho_poly(3) = 0.5*( ppoly_T(3)*(dRdT_top+dRdT_ref) - ppoly_T(2)*(dRdT_bot - dRdT_top) + &
-                         ppoly_S(3)*(dRdS_top+dRdS_ref) - ppoly_S(2)*(dRdS_bot - dRdS_top)   )
-    drho_poly(4) = 0.5*( ppoly_T(3)*(dRdT_bot-dRdT_top) + ppoly_S(3)*(dRdS_bot-dRdS_top) )
+    drho_poly(3) = (ppoly_T(2)*(dRdT_bot-dRdT_top) + ppoly_T(3)*dRdT_top) + &
+                   (ppoly_S(2)*(dRdS_bot-dRdS_top) + ppoly_S(3)*dRdS_top)
+    drho_poly(4) = ppoly_T(3)*(dRdT_bot-dRdT_top) + ppoly_S(3)*(dRdS_bot-dRdS_top)
   else
     call MOM_error(FATAL,"Combination of reconstruction and EOS approximation not supported")
   endif
